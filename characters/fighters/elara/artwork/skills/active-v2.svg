@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="hydra salvo">
+<title>hydra salvo</title>
+
+<g data-artwork="silhouette" transform=""><path fill="var(--icon-base, #15121e)" d="M2 23l7-10 15-9-2 15-9 11zM20 38l8-11 17-10-4 18-10 10zM40 53l8-11 15-8-3 16-10 10z"/><path fill="currentColor" d="M9 20l9-9-3 11-6 4zM28 34l10-10-4 12-5 4zM48 49l10-9-4 12-5 3z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 35l8-5M15 50l9-6M33 61l10-6"/><path fill="var(--icon-base, #15121e)" d="M11 20l4-4-2 6-2 1zM30 34l5-5-2 6-3 2zM50 49l5-5-2 6-3 2z"/></g>
+</svg>

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="hydra snap">
+<title>hydra snap</title>
+<g data-frame="lock-on" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 20V7h13m24 0h13v13M57 44v13H44m-24 0H7V44M29 4h6M60 29v6M29 60h6M4 29v6"/></g>
+<g data-artwork="silhouette" transform="translate(6.4 6.4) scale(.8)"><path fill="var(--icon-base, #15121e)" d="M6 17l9-9 11 4 2 13-9 7-13-3zM25 7l8-5 10 5v13l-9 6-9-6zM43 17l9-9 10 6v15l-12 3-8-7zM12 33l16 2v-7h10v7l15-2v11l-14 4v12H25V48l-13-4z"/><path fill="currentColor" d="M11 18l5-4 5 2 1 5-5 4-6-2zM30 9h8v9h-8zM48 18l5-4 5 2v7l-7 2-3-4zM29 42h6v12h-6z"/><path fill="var(--icon-base, #15121e)" d="M13 19l3-2 3 1v3l-3 2-3-1zM32 11h4v5h-4zM50 19l3-2 3 1v3l-4 2-2-2z"/></g>
+</svg>

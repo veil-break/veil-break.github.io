@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="plasma vent">
+<title>plasma vent</title>
+
+<g data-artwork="silhouette" transform=""><path fill="var(--icon-base, #15121e)" d="M4 34l10-10h35l11 10v20l-8 7H12l-8-7zM10 27V13l7-7h8l-5 11v10zM29 25V5h8v20zM43 27V15l-5-9h9l7 8v13z"/><path fill="currentColor" d="M11 37h42v6H11zM15 49h8v6h-8zM28 49h8v6h-8zM41 49h8v6h-8zM14 23v-8l5-5-3 8v5zM31 8h4v12h-4zM47 20l-4-10 7 7v6h-3z"/><path fill="var(--icon-base, #15121e)" d="M13 39h11v2H13zM28 39h8v2h-8zM40 39h11v2H40z"/></g>
+</svg>

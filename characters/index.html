@@ -112,7 +112,7 @@ function imagePath(c, role) {
 function url(path) {
   // Repository paths, never remote URLs or script schemes from source records.
   if (typeof path !== 'string' || !path || path.startsWith('/') || path.includes('\\') || path.includes(':') || path.split('/').includes('..')) return '';
-  return '../' + path;
+  return (location.protocol === 'file:' ? './' : '/characters/') + path;
 }
 function image(path, alt, className = '') {
   const img = element('img', className); img.src = url(path); img.alt = alt; img.loading = 'lazy'; img.decoding = 'async'; return img;

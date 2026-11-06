@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="fault line">
+<title>fault line</title>
+
+<g data-artwork="silhouette" transform=""><path fill="var(--icon-base, #15121e)" d="M3 19L24 8l8 5 8-5 21 11-5 34-16 9-8-8-8 8-16-9z"/><path fill="currentColor" d="M34 12L21 32l15 7-10 21 20-26-15-6 10-18zM8 24l10-5 1 7-10 5zM46 19l10 5-1 7-10-5z"/><path fill="var(--icon-base, #15121e)" d="M30 31l7 3-9 13 4-10-6-3z"/></g>
+</svg>

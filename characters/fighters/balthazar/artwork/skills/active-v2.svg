@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="bulkhead slam">
+<title>bulkhead slam</title>
+
+<g data-artwork="silhouette" transform=""><path fill="var(--icon-base, #15121e)" d="M5 6h28l10 7-4 22-10 8H11L3 34zM31 44l19-8 11 7v16H27l-6-8z"/><path fill="currentColor" d="M11 13h17l6 4-2 10H11zM39 34l-2 12 8 3-7 13 16-17-9-4 4-12zM47 22l12-5-4 10z"/><path fill="var(--icon-base, #15121e)" d="M14 17h13l3 2-1 5H14z"/></g>
+</svg>

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="overdrive tempo">
+<title>overdrive tempo</title>
+<g data-frame="passive" fill="none" stroke-width="2"><path stroke="var(--icon-base, #15121e)" d="M20 6h24l14 14v24L44 58H20L6 44V20z"/><path stroke="currentColor" d="M26 58h12M26 6h12"/></g>
+<g data-artwork="silhouette" transform="translate(6.4 6.4) scale(.8)"><path fill="var(--icon-base, #15121e)" d="M15 5h34l7 9-6 32-18 15-19-15-6-30z"/><path fill="currentColor" d="M33 9L18 34h14l-8 21 23-31H34l9-15zM14 17l5-5h5l-4 6zM45 44l4-7-1 8-7 7z"/><path fill="var(--icon-base, #15121e)" d="M28 28h8l-6 8 2-5h-7z"/></g>
+</svg>

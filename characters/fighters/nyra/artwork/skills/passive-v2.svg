@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="cellular triage">
+<title>cellular triage</title>
+<g data-frame="passive" fill="none" stroke-width="2"><path stroke="var(--icon-base, #15121e)" d="M20 6h24l14 14v24L44 58H20L6 44V20z"/><path stroke="currentColor" d="M26 58h12M26 6h12"/></g>
+<g data-artwork="silhouette" transform="translate(6.4 6.4) scale(.8)"><path fill="var(--icon-base, #15121e)" d="M6 15L20 7l14 8v16l-14 8-14-8zM31 34l13-8 14 8v16l-14 8-13-8z"/><path fill="currentColor" d="M16 16h8v6h6v7h-6v6h-8v-6h-6v-7h6zM41 35h6v6h6v6h-6v6h-6v-6h-6v-6h6z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M34 13Q53 11 58 24M5 43Q10 57 25 56"/><path fill="var(--icon-base, #15121e)" d="M18 18h2v7h-7v2h7v6h2v-8h6v-1h-8zM43 37h1v7h7v1h-7v6h-1v-7h-6v-1h6z"/></g>
+</svg>

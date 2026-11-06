@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="crush kinetic">
+<title>crush kinetic</title>
+<g data-frame="passive" fill="none" stroke-width="2"><path stroke="var(--icon-base, #15121e)" d="M20 6h24l14 14v24L44 58H20L6 44V20z"/><path stroke="currentColor" d="M26 58h12M26 6h12"/></g>
+<g data-artwork="silhouette" transform="translate(6.4 6.4) scale(.8)"><path fill="var(--icon-base, #15121e)" d="M7 13L25 6l7 7 7-7 18 7v24L39 57l-7-8-7 8L7 37z"/><path fill="currentColor" d="M31 9l-8 19 13 6-10 18 19-21-13-7 7-16zM10 17l10-4v5l-10 4zM44 13l10 4v5l-10-4z"/><path fill="var(--icon-base, #15121e)" d="M12 17l6-2v1l-6 2zM46 17l6 2v1l-6-2z"/></g>
+</svg>

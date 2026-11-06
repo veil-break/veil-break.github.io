@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="caduceus pulse">
+<title>caduceus pulse</title>
+<g data-frame="passive" fill="none" stroke-width="2"><path stroke="var(--icon-base, #15121e)" d="M20 6h24l14 14v24L44 58H20L6 44V20z"/><path stroke="currentColor" d="M26 58h12M26 6h12"/></g>
+<g data-artwork="silhouette" transform="translate(6.4 6.4) scale(.8)"><path fill="var(--icon-base, #15121e)" d="M10 9l11-5h22l11 5 6 21-6 20-22 11-22-11-6-20z"/><path fill="currentColor" d="M15 14l7-4h20l7 4-5 6H20zM17 44h8v8l-8-4zM39 44h8l-8 8z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 32h13l6-11 9 23 7-15 5 3h10"/><path fill="var(--icon-base, #15121e)" d="M22 12h19l3 2H20z"/></g>
+</svg>

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="reconstruct">
+<title>reconstruct</title>
+
+<g data-artwork="silhouette" transform=""><path fill="var(--icon-base, #15121e)" d="M20 4h24l3 15h14v25l-14 3-3 14H20l-3-14-14-3V19h14z"/><path fill="currentColor" d="M27 11h10v16h16v10H37v16H27V37H11V27h16zM21 9h3v10h-3zM41 45h3v10h-3z"/><path fill="var(--icon-base, #15121e)" d="M29 13h2v12h-2zM39 29h12v2H39zM33 39h2v12h-2zM13 33h12v2H13z"/></g>
+</svg>

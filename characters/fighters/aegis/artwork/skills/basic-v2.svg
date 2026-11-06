@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="ward round">
+<title>ward round</title>
+<g data-frame="lock-on" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 20V7h13m24 0h13v13M57 44v13H44m-24 0H7V44M29 4h6M60 29v6M29 60h6M4 29v6"/></g>
+<g data-artwork="silhouette" transform="translate(6.4 6.4) scale(.8)"><path fill="var(--icon-base, #15121e)" d="M12 8l20-5 20 5 5 7-5 29-20 17-20-17-5-29z"/><path fill="currentColor" d="M29 10h6v35l-3 7-3-7zM16 17l9-3v5l-8 3zM39 14l9 3-1 5-8-3zM20 28h24v6H20z"/><path fill="var(--icon-base, #15121e)" d="M31 15h2v24h-2zM22 30h20v2H22z"/></g>
+</svg>

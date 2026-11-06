@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="sunbreak">
+<title>sunbreak</title>
+<g data-frame="passive" fill="none" stroke-width="2"><path stroke="var(--icon-base, #15121e)" d="M20 6h24l14 14v24L44 58H20L6 44V20z"/><path stroke="currentColor" d="M26 58h12M26 6h12"/></g>
+<g data-artwork="silhouette" transform="translate(6.4 6.4) scale(.8)"><path fill="var(--icon-base, #15121e)" d="M7 18l13 1 4-15 9 12 15-8-2 16 15 6-13 9 6 15-16-3-9 12-5-15-16 3 7-14-13-6z"/><path fill="currentColor" d="M26 24l8-5 8 9-6 11-12-2-3-7zM38 8l3-6 2 8zM51 43l10 7-12-2z"/><path fill="var(--icon-base, #15121e)" d="M28 27l5-3 4 5-3 6-7-1-1-3z"/></g>
+</svg>

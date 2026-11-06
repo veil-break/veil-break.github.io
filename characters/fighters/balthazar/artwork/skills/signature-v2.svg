@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="fortress protocol">
+<title>fortress protocol</title>
+
+<g data-artwork="silhouette" transform=""><path fill="var(--icon-base, #15121e)" d="M4 14h12V5h10v12h12V5h10v9h12v42L32 62 4 56zM11 2h10v5H11zM43 2h10v5H43z"/><path fill="currentColor" d="M10 23h7v24h-7zM47 23h7v24h-7zM26 23h12v31H26zM29 27v20h6V27zM9 52l16 4v3l-16-4zM39 56l16-4v3l-16 4z"/><path fill="var(--icon-base, #15121e)" d="M12 28h3v13h-3zM49 28h3v13h-3zM29 27h6v20h-6zM31 49h2v4h-2z"/></g>
+</svg>

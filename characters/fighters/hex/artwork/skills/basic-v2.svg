@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="hexbolt">
+<title>hexbolt</title>
+<g data-frame="lock-on" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 20V7h13m24 0h13v13M57 44v13H44m-24 0H7V44M29 4h6M60 29v6M29 60h6M4 29v6"/></g>
+<g data-artwork="silhouette" transform="translate(6.4 6.4) scale(.8)"><path fill="var(--icon-base, #15121e)" d="M4 23l8-10h13l9 10v18l-9 10H12L4 41zM6 17l-3-6 12 2zM6 30H1v10h5zM38 19l12-7 12 7v14l-12 7-12-7z"/><path fill="currentColor" d="M12 23l5-4h6l5 6v14l-5 6h-6l-5-5zM42 21l8-4 7 4v9l-7 4-8-4zM32 26h6v7h-6zM47 21h6v8h-6z"/><path fill="var(--icon-base, #15121e)" d="M15 26l4-3h3l3 4v10l-4 4h-2l-4-4zM45 23l5-3 4 3v5l-4 3-5-3z"/></g>
+</svg>

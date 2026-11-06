@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="BFG 2000 discharge">
+<title>BFG 2000 discharge</title>
+
+<g data-artwork="silhouette" transform=""><path fill="var(--icon-base, #15121e)" d="M2 18l8-9h28l11 11h12v23H47L37 54H9l-7-9zM9 54h13v7H9zM25 54h9v7h-9z"/><path fill="currentColor" d="M10 19h24l8 9h15v8H42l-8 9H10v-8h20l4-5-4-5H10zM45 22h5v20h-5zM17 12h12v3H17z"/><path fill="var(--icon-base, #15121e)" d="M13 21h18l4 5-6-3H13zM13 39h16l6-3-4 6H13zM47 25h1v14h-1z"/></g>
+</svg>

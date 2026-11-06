@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="suture dart">
+<title>suture dart</title>
+<g data-frame="lock-on" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 20V7h13m24 0h13v13M57 44v13H44m-24 0H7V44M29 4h6M60 29v6M29 60h6M4 29v6"/></g>
+<g data-artwork="silhouette" transform="translate(6.4 6.4) scale(.8)"><path fill="var(--icon-base, #15121e)" d="M4 39l6-10 27-16 16 2 8 9-9 12-30 17-11-2zM13 51l3 9 11-9zM31 13l-4-6 12-2 8 7z"/><path fill="currentColor" d="M14 35l26-15 10 1-8 8-26 15zM44 30l9-6 2 2-5 5zM13 44l7 1-4 4z"/><path fill="var(--icon-base, #15121e)" d="M20 34l19-11 4 1-21 12zM26 40l13-8 3 1-14 9z"/></g>
+</svg>

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="nanite siphon">
+<title>nanite siphon</title>
+
+<g data-artwork="silhouette" transform=""><path fill="var(--icon-base, #15121e)" d="M14 4h25l4 7-4 7v9l12 21-6 13H10L4 48l10-21V18l-4-7zM50 9h10v12H50z"/><path fill="currentColor" d="M18 9h17v6H18zM18 31h18l9 18-3 6H14l-4-6zM24 33v13h8V33zM17 39h22v6H17z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M40 17C60 21 43 43 58 46M54 40l5 6 3-8"/><path fill="var(--icon-base, #15121e)" d="M20 11h13v2H20zM15 49h25v2H15zM12 45h5l-1-4h-2zM39 45h3l-3-5h-2z"/></g>
+</svg>

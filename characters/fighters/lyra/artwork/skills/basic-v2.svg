@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="sine shot">
+<title>sine shot</title>
+<g data-frame="lock-on" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 20V7h13m24 0h13v13M57 44v13H44m-24 0H7V44M29 4h6M60 29v6M29 60h6M4 29v6"/></g>
+<g data-artwork="silhouette" transform="translate(6.4 6.4) scale(.8)"><path fill="var(--icon-base, #15121e)" d="M3 23l9-8h9L39 3v58L21 49h-9l-9-8z"/><path fill="currentColor" d="M11 24h10l11-8v32l-11-8H11zM43 20q14 12 0 24l-3-5q8-7 0-14zM51 10q23 22 0 44l-3-5q17-17 0-34z"/><path fill="var(--icon-base, #15121e)" d="M13 27h6v2h-6zM25 24l4-3v22l-4-3z"/></g>
+</svg>

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="twin carbines">
+<title>twin carbines</title>
+<g data-frame="lock-on" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 20V7h13m24 0h13v13M57 44v13H44m-24 0H7V44M29 4h6M60 29v6M29 60h6M4 29v6"/></g>
+<g data-artwork="silhouette" transform="translate(6.4 6.4) scale(.8)"><path fill="var(--icon-base, #15121e)" d="M4 16l7-5h32l7 5v10H28l-4 10H12l3-10H4zM17 41l7-5h32l6 5v10H42l-4 10H26l3-10H17z"/><path fill="currentColor" d="M11 17h29v5H11zM24 42h29v5H24zM45 16h8v9h-8zM57 41h6v9h-6zM17 29h5l-1 4h-5z"/><path fill="var(--icon-base, #15121e)" d="M18 18h18v2H18zM31 43h18v2H31z"/></g>
+</svg>

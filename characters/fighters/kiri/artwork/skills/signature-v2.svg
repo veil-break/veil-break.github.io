@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="prism storm">
+<title>prism storm</title>
+
+<g data-artwork="silhouette" transform=""><path fill="var(--icon-base, #15121e)" d="M30 2l31 48-29 13L2 50z"/><path fill="currentColor" d="M31 10l23 38-22 9L9 48zM31 20L18 46l14 5 13-5zM29 25h5l-1 20h-4z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 17l7 5M51 15l-5 7M3 35l7 2M59 35l-7 2"/><path fill="var(--icon-base, #15121e)" d="M30 25h2v19h-2zM15 46l17 7 16-7-2 3-14 6-15-6z"/></g>
+</svg>

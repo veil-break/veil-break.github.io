@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="scalpel shot">
+<title>scalpel shot</title>
+<g data-frame="lock-on" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 20V7h13m24 0h13v13M57 44v13H44m-24 0H7V44M29 4h6M60 29v6M29 60h6M4 29v6"/></g>
+<g data-artwork="silhouette" transform="translate(6.4 6.4) scale(.8)"><path fill="var(--icon-base, #15121e)" d="M4 51l26-28 5 5-24 30-6 3-4-4zM28 19L48 2l13 2-4 12-20 18z"/><path fill="currentColor" d="M35 21l16-14 5-1-3 6-16 16zM8 51l20-22 2 2-20 23z"/><path fill="var(--icon-base, #15121e)" d="M40 20l10-10 1 1-10 10z"/></g>
+</svg>

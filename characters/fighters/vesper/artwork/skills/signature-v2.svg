@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="chrono-resuscitation">
+<title>chrono-resuscitation</title>
+
+<g data-artwork="silhouette" transform=""><path fill="var(--icon-base, #15121e)" d="M19 17h26l8 8v24l-8 10H19L11 49V25zM25 5h14v8H25z"/><path fill="currentColor" d="M28 24h8v10h10v8H36v10h-8V42H18v-8h10z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M6 43C-4 13 39-9 57 12M49 11l9 2 1-10M58 25q8 24-10 34"/><path fill="var(--icon-base, #15121e)" d="M30 26h2v10H20v2h14v12h-2V40h12v-2H32V26z"/></g>
+</svg>

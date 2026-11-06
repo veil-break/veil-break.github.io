@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="black signal">
+<title>black signal</title>
+
+<g data-artwork="silhouette" transform=""><path fill="var(--icon-base, #15121e)" d="M18 22l7-8h14l7 8v32l-7 6H25l-7-6zM28 9V3h8v6zM6 19l5-5 8 7-4 5zM45 21l8-7 5 5-9 7zM3 35h10v6H3zM51 35h10v6H51z"/><path fill="currentColor" d="M25 25h14v8H25zM29 38h6v14h-6zM28 6h8v4h-8z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15 8Q32-4 49 8M5 12Q32-10 59 12"/><path fill="var(--icon-base, #15121e)" d="M27 27h10v4H27zM31 42h2v7h-2z"/></g>
+</svg>
