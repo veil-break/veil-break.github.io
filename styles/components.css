@@ -1,0 +1,52 @@
+.term-muted { color: var(--color-muted); font-size: 0.875rem; }
+.term-genre, .terminal-prompt label { color: var(--color-signal); }
+.term-genre { letter-spacing: 0.06em; }
+.term-prose { max-inline-size: 60ch; }
+.term-command { color: var(--color-muted); white-space: pre-wrap; }
+.term-error { color: var(--color-fault); }
+.terminal-dots { letter-spacing: 0.25em; color: var(--color-muted); font-size: 0.625rem; }
+.terminal-status { color: var(--color-fault); }
+.run-command { color: var(--color-muted); min-inline-size: 2rem; min-block-size: 2rem; }
+.splash-screen { position: fixed; inset: 0; z-index: 2; background: var(--color-ground); overflow: hidden; }
+#splash-animation, .vbs-canvas-wrap { position: absolute; inset: 0; display: grid; place-items: center; }
+#splash-animation > img { inline-size: min(65vw, 28rem); }
+.vbs-svg { inline-size: 100%; block-size: 100%; }
+.splash-controls { position: absolute; inset: auto 0 1.5rem; display: flex; justify-content: center; gap: var(--space-medium); font-size: 0.75rem; color: var(--color-muted); }
+.splash-controls button { padding: var(--space-small); }
+body[data-phase="splash"] .terminal-stage { visibility: hidden; }
+body[data-phase="handoff"] .splash-screen { animation: splash-dissolve var(--handoff-duration) linear both; }
+body[data-phase="handoff"] .terminal-window { animation: terminal-arrive var(--handoff-duration) linear both; }
+body[data-phase="handoff"] .signal-tear { animation: signal-tear var(--handoff-duration) steps(1) both; }
+.signal-tear { position: fixed; z-index: 3; inset: 0; pointer-events: none; opacity: 0; background: repeating-linear-gradient(0deg, transparent 0 5px, #48f5ef12 5px 6px); }
+.terminal-window::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; background: repeating-linear-gradient(0deg, transparent 0 5px, #48f5ef14 5px 6px); }
+.terminal-window.has-fault { animation: command-fault var(--fault-duration) steps(1) both; }
+.terminal-window.has-fault::after { opacity: 1; }
+@keyframes splash-dissolve {
+  0% { opacity: 1; transform: translateX(0); }
+  15% { opacity: 0.85; transform: translateX(-18px); clip-path: inset(0); }
+  24% { opacity: 0.7; transform: translateX(32px); clip-path: polygon(0 0,100% 0,100% 35%,0 35%,0 41%,100% 41%,100% 78%,0 78%); }
+  38% { opacity: 0.65; transform: translateX(-24px); clip-path: inset(0); }
+  60% { opacity: 0.4; transform: translateX(14px); }
+  82% { opacity: 0.15; transform: translateX(-8px); }
+  100% { opacity: 0; transform: translateX(0); }
+}
+@keyframes terminal-arrive {
+  0% { opacity: 0.05; transform: translateX(-40px) scaleY(0.92); }
+  18% { opacity: 0.3; transform: translateX(28px); }
+  32% { opacity: 0.65; transform: translateX(-24px); text-shadow: 6px 0 var(--color-fault), -6px 0 var(--color-cyan); }
+  48% { opacity: 0.5; transform: translateX(18px); clip-path: inset(12% 0 8%); }
+  64% { opacity: 0.85; transform: translateX(-12px); clip-path: inset(0); }
+  80% { opacity: 0.95; transform: translateX(6px); text-shadow: -3px 0 var(--color-fault), 3px 0 var(--color-cyan); }
+  100% { opacity: 1; transform: none; text-shadow: none; }
+}
+@keyframes signal-tear {
+  0%, 100% { opacity: 0; }
+  12%, 44%, 76% { opacity: 0.5; transform: translateX(-22px); clip-path: inset(20% 0 65%); }
+  28%, 60%, 88% { opacity: 0.35; transform: translateX(30px); clip-path: inset(62% 0 18%); }
+}
+@keyframes command-fault {
+  0%, 100% { transform: none; text-shadow: none; }
+  14%, 45% { transform: translateX(-10px); text-shadow: 3px 0 var(--color-fault), -3px 0 var(--color-cyan); }
+  28%, 62% { transform: translateX(8px); clip-path: inset(1% 0 2%); }
+  80% { transform: translateX(-3px); clip-path: inset(0); }
+}

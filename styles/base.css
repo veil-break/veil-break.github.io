@@ -1,0 +1,12 @@
+@font-face {
+  font-family: "Share Tech Mono";
+  src: url("../vendor/veilbreak/fonts/ShareTechMono-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+:where(html) { color-scheme: dark; background: var(--color-ground); color: var(--color-text); font: 16px/1.65 var(--font-mono); }
+:where(body) { min-block-size: 100svh; overflow-x: hidden; }
+:where(button, input) { font: inherit; }
+:where(button) { cursor: pointer; }
+:where(button, input) { border: 0; background: transparent; color: inherit; }
+:where(:focus-visible) { outline: 1px solid var(--color-signal); outline-offset: 4px; }
+:where(p) { overflow-wrap: anywhere; }

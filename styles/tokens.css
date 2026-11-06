@@ -1,0 +1,16 @@
+:root {
+  --color-ground: #0d0811;
+  --color-panel: #100e17;
+  --color-text: #faeef4;
+  --color-muted: #aaa2b3;
+  --color-line: #faeef424;
+  --color-signal: #8ff0cf;
+  --color-fault: #ff40a0;
+  --color-cyan: #48f5ef;
+  --font-mono: "Share Tech Mono", ui-monospace, monospace;
+  --space-small: 0.75rem;
+  --space-medium: 1.5rem;
+  --space-large: clamp(1.25rem, 4vw, 3rem);
+  --handoff-duration: 1800ms;
+  --fault-duration: 520ms;
+}

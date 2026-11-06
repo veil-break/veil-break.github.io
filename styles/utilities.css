@@ -1,0 +1,4 @@
+.visually-hidden { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.skip-link { position: fixed; inset: 1rem auto auto 1rem; z-index: 5; padding: 0.5rem; background: var(--color-signal); color: var(--color-ground); }
+.skip-link:not(:focus) { translate: 0 -300%; }
+.noscript-note { position: fixed; z-index: 4; inset: auto 1rem 5rem; text-align: center; }

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>veilbreak // signal lost</title>
+  <meta name="description" content="Veilbreak: a roguelike squad survival runner. Hold the street. Shatter the Veil.">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d0811">
+  <link rel="preload" href="vendor/veilbreak/fonts/ShareTechMono-Regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="styles/main.css">
+  <script defer src="vendor/react.production.min.js"></script>
+  <script defer src="vendor/react-dom.production.min.js"></script>
+  <script defer src="scripts/VeilbreakSplash.js"></script>
+  <script type="module" src="scripts/main.js"></script>
+</head>
+<body data-phase="splash">
+  <a class="skip-link" href="#command">skip to terminal</a>
+  <section class="splash-screen" id="splash-root" aria-label="veilbreak intro">
+    <div id="splash-animation" aria-hidden="true"><img src="assets/Mark.svg" alt="" width="513" height="259"></div>
+    <audio id="slice-audio" preload="none" src="assets/VeilbreakSplashSlice.wav"></audio>
+    <div class="splash-controls">
+      <button type="button" id="toggle-sound" aria-pressed="false">audio off</button>
+      <button type="button" id="skip-splash">skip intro [esc]</button>
+    </div>
+  </section>
+  <main id="main" class="terminal-stage" inert>
+    <article class="terminal-window" aria-labelledby="terminal-title">
+      <header class="terminal-chrome">
+        <span class="terminal-dots" aria-hidden="true">● ● ●</span>
+        <h1 id="terminal-title">veilbreak — /dev/veil</h1>
+        <span class="terminal-status">offline</span>
+      </header>
+      <div class="terminal-body" id="terminal-body" tabindex="0" aria-label="terminal scrollback">
+        <div id="terminal-output" role="log" aria-label="terminal output" aria-live="polite" aria-relevant="additions">
+          <p class="term-muted">veilbreak [pre-alpha] // intercepted transmission</p>
+          <p class="term-genre">roguelike squad survival runner</p>
+          <p class="term-prose">Rain eats the skyline. Four operatives hold a fractured street as something behind the city begins to wake. Build your squad, survive the breach, and carry what remains into the next run.</p>
+          <p class="term-muted">the signal is yours. enter a command.</p>
+        </div>
+        <form id="terminal-form" class="terminal-prompt" autocomplete="off">
+          <label for="command"><span class="visually-hidden">terminal command</span><span aria-hidden="true">guest@veil:~$</span></label>
+          <input id="command" name="command" type="text" maxlength="256" spellcheck="false" autocapitalize="off" autocomplete="off" enterkeyhint="send" aria-describedby="command-hint">
+          <button class="run-command" type="submit" aria-label="run command">↵</button>
+        </form>
+      </div>
+      <footer class="terminal-footer"><p id="command-hint">enter to transmit · ↑ ↓ history</p><p>connection severed<span aria-hidden="true"> ▪</span></p></footer>
+    </article>
+  </main>
+  <div class="signal-tear" aria-hidden="true"></div>
+  <noscript><p class="noscript-note">javascript is required for the intro and interactive terminal.</p></noscript>
+</body>
+</html>
