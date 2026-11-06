@@ -268,6 +268,7 @@
 
     const world = (
       <g>
+        <g className="vbs-hex">
         <polyline points={pts(hv)} fill="none" stroke={pal.hex} strokeWidth="1.5" opacity={0.08 * letters} />
         <g opacity={hexOp}>
           <polyline points={pts(hv)} fill="none" stroke={pal.hex} strokeWidth="7" pathLength="1"
@@ -280,6 +281,7 @@
               <circle cx={tip[0]} cy={tip[1]} r="3.5" fill={pal.hex} />
             </g>
           )}
+        </g>
         </g>
         {ghost && [['pink', VB.pink], ['teal', VB.ghostTeal]].map(([key, color]) => (
           <g key={key} opacity={ghost.op} transform={`translate(${ghost[key][0].toFixed(2)} ${ghost[key][1].toFixed(2)})`}>

@@ -1,5 +1,5 @@
-.terminal-stage { min-block-size: 100svh; display: grid; place-items: center; padding: var(--space-large); }
-.terminal-window { inline-size: min(100%, 54rem); position: relative; overflow: hidden; border: 1px solid var(--color-line); border-radius: 7px; background: var(--color-panel); box-shadow: 0 28px 100px #0007; }
+.terminal-stage { isolation: isolate; overflow: clip; min-block-size: 100svh; display: grid; place-items: center; padding: var(--space-large); }
+.terminal-window { z-index: 1; inline-size: calc(100% - var(--operative-width) * 0.75); position: relative; overflow: hidden; border: 1px solid var(--color-line); border-radius: 7px; background: var(--color-panel); box-shadow: 0 28px 100px #0007; }
 .terminal-chrome, .terminal-footer { display: flex; align-items: center; justify-content: space-between; gap: var(--space-small); padding: var(--space-small) var(--space-medium); color: var(--color-muted); font-size: 0.75rem; }
 .terminal-chrome { border-block-end: 1px solid var(--color-line); }
 .terminal-chrome h1 { font-size: inherit; font-weight: 400; letter-spacing: 0.04em; }
@@ -11,8 +11,20 @@
 .terminal-prompt { display: flex; align-items: baseline; gap: var(--space-small); margin-block-start: var(--space-medium); }
 .terminal-prompt input { min-inline-size: 0; inline-size: 100%; flex: 1; padding: 0; border-radius: 0; caret-color: var(--color-signal); }
 @media (max-width: 480px) {
-  .terminal-stage { padding: 0.75rem; }
+  .terminal-stage { isolation: isolate; overflow: clip; padding: 0.75rem; }
   .terminal-chrome, .terminal-footer { padding-inline: 1rem; }
   .terminal-dots { display: none; }
   .terminal-prompt { gap: 0.5rem; font-size: 0.875rem; }
+}
+
+/* A quarter of the operative's width is occluded by the foreground terminal. */
+.terminal-composition { --operative-width: min(35vw, 28rem, 58svh); position: relative; inline-size: min(100%, 76rem); }
+.operative { position: absolute; z-index: 0; inline-size: var(--operative-width); inset-inline-end: 0; inset-block-start: 50%; translate: 0 -50%; pointer-events: none; }
+.operative img { inline-size: 100%; block-size: auto; }
+@media (max-width: 760px) {
+  .terminal-stage { padding-block: 2rem; }
+  .terminal-composition { --operative-width: min(65vw, 20rem); padding-block-start: 13rem; }
+  .terminal-window { inline-size: 100%; }
+  .operative { inset-block-start: 0; translate: 0; inset-inline-end: -1rem; }
+  .terminal-body { block-size: min(27rem, 58svh); }
 }

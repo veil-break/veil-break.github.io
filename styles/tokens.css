@@ -11,6 +11,8 @@
   --space-small: 0.75rem;
   --space-medium: 1.5rem;
   --space-large: clamp(1.25rem, 4vw, 3rem);
-  --handoff-duration: 1800ms;
-  --fault-duration: 520ms;
+  --handoff-duration: 2400ms;
+  --fault-duration: 640ms;
+  --operative-delay: 600ms;
+  --operative-duration: 1700ms;
 }

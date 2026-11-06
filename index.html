@@ -25,6 +25,10 @@
     </div>
   </section>
   <main id="main" class="terminal-stage" inert>
+    <div class="terminal-composition">
+      <figure class="operative" aria-label="veilbreak operative">
+        <img src="assets/character-cutout.png" alt="Cybernetic operative with a holographic cloak, spider rig and phase cannon" width="1024" height="1536" decoding="async" fetchpriority="high">
+      </figure>
     <article class="terminal-window" aria-labelledby="terminal-title">
       <header class="terminal-chrome">
         <span class="terminal-dots" aria-hidden="true">● ● ●</span>
@@ -46,8 +50,9 @@
       </div>
       <footer class="terminal-footer"><p id="command-hint">enter to transmit · ↑ ↓ history</p><p>connection severed<span aria-hidden="true"> ▪</span></p></footer>
     </article>
+    </div>
   </main>
-  <div class="signal-tear" aria-hidden="true"></div>
+  <canvas class="breach-effects" id="breach-effects" aria-hidden="true" hidden></canvas>
   <noscript><p class="noscript-note">javascript is required for the intro and interactive terminal.</p></noscript>
 </body>
 </html>

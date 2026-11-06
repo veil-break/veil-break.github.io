@@ -1,4 +1,5 @@
 import { mountTerminal } from './terminal.js';
+import { createBreachEffects } from './breach-effects.js';
 
 const splash = document.getElementById('splash-root');
 const stage = document.getElementById('main');
@@ -6,6 +7,12 @@ const windowElement = document.querySelector('.terminal-window');
 const soundButton = document.getElementById('toggle-sound');
 const sliceAudio = document.getElementById('slice-audio');
 const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const effects = createBreachEffects({
+  canvas: document.getElementById('breach-effects'),
+  terminal: windowElement,
+  operative: document.querySelector('.operative img'),
+  motion,
+});
 const terminal = mountTerminal(glitchTerminal);
 let phase = 'splash';
 let audioEnabled = false;
@@ -13,13 +20,19 @@ let reactRoot;
 let splashTimer;
 let faultTimer;
 
+function durationToken(name) {
+  return parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name));
+}
+
 function glitchTerminal() {
   windowElement.classList.remove('has-fault');
   clearTimeout(faultTimer);
   // Restart the same finite animation even when commands arrive in quick succession.
   void windowElement.offsetWidth;
   windowElement.classList.add('has-fault');
-  faultTimer = setTimeout(() => windowElement.classList.remove('has-fault'), 520);
+  const duration = durationToken('--fault-duration');
+  effects.play(duration);
+  faultTimer = setTimeout(() => windowElement.classList.remove('has-fault'), duration);
 }
 
 function playSlice() {
@@ -40,10 +53,12 @@ function beginHandoff() {
   clearTimeout(splashTimer);
   renderSplash(false);
   splash.inert = true;
+  const duration = durationToken('--handoff-duration');
+  effects.play(duration, { shatter: true });
   document.body.dataset.phase = phase;
-  const duration = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--handoff-duration'));
 
   setTimeout(() => {
+    effects.stop();
     phase = 'terminal';
     document.body.dataset.phase = phase;
     splash.hidden = true;

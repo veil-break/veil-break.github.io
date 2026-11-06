@@ -1,13 +1,16 @@
 @media (prefers-reduced-motion: reduce) {
   body[data-phase="handoff"] .splash-screen { animation-name: quiet-out; }
   body[data-phase="handoff"] .terminal-window { animation-name: quiet-in; }
-  .signal-tear, .terminal-window::after { display: none; }
+  body[data-phase="handoff"] .operative { animation: quiet-in var(--operative-duration) linear var(--operative-delay) both; }
+  body[data-phase="handoff"] .terminal-composition { animation: none; }
+  .breach-effects, .operative::before, .operative::after, .terminal-window::after { display: none; }
   .terminal-window.has-fault { animation: none; border-color: var(--color-fault); }
 }
 @keyframes quiet-out { from { opacity: 1; } to { opacity: 0; } }
 @keyframes quiet-in { from { opacity: 0; } to { opacity: 1; } }
 @media print {
-  .splash-screen, .signal-tear, .terminal-prompt, .skip-link { display: none; }
+  .splash-screen, .breach-effects, .operative, .terminal-prompt, .skip-link { display: none; }
   body[data-phase] .terminal-stage { visibility: visible; }
-  body[data-phase] .terminal-window { animation: none; }
+  body[data-phase] .terminal-window, body[data-phase] .terminal-composition { animation: none; inline-size: 100%; }
+  .terminal-composition { padding: 0; }
 }
