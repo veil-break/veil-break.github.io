@@ -42,8 +42,11 @@
       <nav class="class-legend" id="class-legend" aria-label="filter by class"></nav>
       <div class="filters" role="search">
         <label class="field field--grow"><span class="hud">find an operative</span><input id="search" type="search" placeholder="name, callsign, weapon, skill…" autocomplete="off" spellcheck="false"></label>
+        <label class="field"><span class="hud">rarity</span>
+          <select id="rarity" data-filter="rarity"><option value="all">all rarities</option><option value="rare">rare</option><option value="epic">epic</option><option value="legendary">legendary</option></select>
+        </label>
         <label class="field"><span class="hud">kit</span>
-          <select id="kit"><option value="all">all kits</option><option value="authored">authored kits</option><option value="hypothesis">hypothesis kits</option></select>
+          <select id="kit" data-filter="kit"><option value="all">all kits</option><option value="authored">authored kits</option><option value="hypothesis">hypothesis kits</option></select>
         </label>
         <button class="button button--quiet shape" type="button" id="reset">reset</button>
         <p class="hud filters__count" id="count" role="status" aria-live="polite"></p>
@@ -76,7 +79,12 @@
       <div class="dossier__scroll">
         <header class="dossier__head">
           <div class="dossier__identity"></div>
-          <button class="dossier__close icon-button shape" type="button" aria-label="close dossier">×</button>
+          <div class="dossier__controls">
+            <button class="icon-button shape" type="button" data-step="-1" aria-label="previous operative">←</button>
+            <span class="hud dossier__counter" aria-live="polite"></span>
+            <button class="icon-button shape" type="button" data-step="1" aria-label="next operative">→</button>
+            <button class="dossier__close icon-button shape" type="button" aria-label="close dossier">×</button>
+          </div>
         </header>
         <div class="dossier__tabs" role="tablist" aria-label="dossier sections">
           <button role="tab" id="tab-overview" data-tab="overview" aria-controls="panel-overview" aria-selected="true">overview</button>

@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { assetUrl, countBy, filterFighters, matches, pickSquad, seeded, shuffle, skillMeta, statScale, step } from '../scripts/lib/roster.js';
+import { assetUrl, clearFilters, countBy, filterFighters, matches, pickSquad, readFilters, seeded, shuffle, skillMeta, statScale, step, writeFilters } from '../scripts/lib/roster.js';
 
 const fighter = (id, role, kit = 'authored', extra = {}) => ({
   id, name: id[0].toUpperCase() + id.slice(1), code: id.slice(0, 2).toUpperCase(), role, kit, rarity: 'epic', callsign: `${id} call`,
@@ -25,6 +25,19 @@ describe('filters', () => {
   test('class and kit narrow together', () => {
     expect(filterFighters(roster, { role: 'operator', kit: 'hypothesis' }).map((f) => f.id)).toEqual(['zinnia']);
     expect(matches(roster[0], { role: 'operator' })).toBe(false);
+  });
+  test('rarity narrows like class and kit', () => {
+    const mixed = [...roster, fighter('sol', 'striker', 'authored', { rarity: 'legendary' })];
+    expect(filterFighters(mixed, { rarity: 'legendary' }).map((f) => f.id)).toEqual(['sol']);
+    expect(filterFighters(mixed, { role: 'striker', rarity: 'epic' }).map((f) => f.id)).toEqual(['aria']);
+  });
+  test('filter state round-trips through the query string and drops the no-filter values', () => {
+    const state = { query: 'bolt', role: 'operator', kit: 'all', rarity: 'legendary' };
+    const params = writeFilters(state);
+    expect(params.toString()).toBe('q=bolt&class=operator&rarity=legendary');
+    expect(readFilters(params)).toEqual(state);
+    expect(readFilters(new URLSearchParams())).toEqual(clearFilters());
+    expect(writeFilters(clearFilters()).toString()).toBe('');
   });
   test('counts and the stat scale come from the roster itself', () => {
     expect(countBy(roster, 'kit')).toEqual({ authored: 3, hypothesis: 1 });

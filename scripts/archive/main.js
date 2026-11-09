@@ -1,7 +1,7 @@
 import { element, image } from '../lib/dom.js';
 import { classIcon, paint } from '../lib/fighter-view.js';
 import { glitchReveal, observeReveals } from '../lib/motion.js';
-import { assetUrl, countBy, filterFighters, KITS, loadRoster, statScale } from '../lib/roster.js';
+import { assetUrl, clearFilters, countBy, filterFighters, KITS, loadRoster, readFilters, statScale, writeFilters } from '../lib/roster.js';
 import { createDossier } from './dossier.js';
 import { jsonViewer } from './json-viewer.js';
 
@@ -9,25 +9,18 @@ const ROOT = '../';
 const grid = document.getElementById('grid');
 const legend = document.getElementById('class-legend');
 const search = document.getElementById('search');
-const kitSelect = document.getElementById('kit');
+const selects = [...document.querySelectorAll('select[data-filter]')];
 const count = document.getElementById('count');
 const empty = document.getElementById('empty');
 const details = new Map();
 let roster;
+let visible = [];
 
-/** Filter state lives in the query string, so a filtered view is a shareable link. */
-function readState() {
-  const params = new URLSearchParams(location.search);
-  return { query: params.get('q') || '', role: params.get('class') || 'all', kit: params.get('kit') || 'all' };
-}
+const cardOf = (fighter) => grid.querySelector(`.fighter-card[data-id="${fighter.id}"]`);
 
-function writeState(state) {
-  const params = new URLSearchParams();
-  if (state.query) params.set('q', state.query);
-  if (state.role !== 'all') params.set('class', state.role);
-  if (state.kit !== 'all') params.set('kit', state.kit);
+function replaceUrl({ params = new URLSearchParams(location.search), hash = location.hash } = {}) {
   const query = params.toString();
-  history.replaceState(null, '', `${location.pathname}${query ? `?${query}` : ''}${location.hash}`);
+  history.replaceState(null, '', `${location.pathname}${query ? `?${query}` : ''}${hash}`);
 }
 
 function card(fighter, onOpen) {
@@ -39,27 +32,30 @@ function card(fighter, onOpen) {
   art.append(element('span', 'fighter-card__code', fighter.code), image(assetUrl(ROOT, fighter.media.face), '', { width: 640, height: 640 }));
   const body = element('span', 'fighter-card__body');
   const meta = element('span', 'fighter-card__meta hud');
-  meta.append(classIcon(roster, fighter.role, ROOT, { size: 16 }), `${fighter.role} · ${fighter.rarity}`);
+  meta.append(classIcon(roster, fighter.role, ROOT, { size: 16 }), `${fighter.role} · `, element('span', `fighter-card__rarity fighter-card__rarity--${fighter.rarity}`, fighter.rarity));
   body.append(meta, element('span', 'fighter-card__name', fighter.name), element('span', 'fighter-card__callsign', fighter.callsign));
   if (fighter.kit === 'hypothesis') body.append(element('span', 'chip chip--hypothesis', KITS.hypothesis.label));
   button.append(art, body);
-  button.addEventListener('click', () => onOpen(fighter, button));
+  button.addEventListener('click', () => onOpen(fighter));
   return button;
 }
 
+/** State → view: the visible cards, the pressed class, every control's value, the count and the URL. */
 function render(state) {
-  const visible = new Set(filterFighters(roster.fighters, state).map((f) => f.id));
-  for (const node of grid.querySelectorAll('.fighter-card')) node.parentElement.hidden = !visible.has(node.dataset.id);
+  visible = filterFighters(roster.fighters, state);
+  const ids = new Set(visible.map((f) => f.id));
+  for (const node of grid.querySelectorAll('.fighter-card')) node.parentElement.hidden = !ids.has(node.dataset.id);
   for (const node of legend.querySelectorAll('button')) node.setAttribute('aria-pressed', String(node.dataset.role === state.role));
-  count.textContent = `${visible.size} / ${roster.fighters.length} operatives`;
-  empty.hidden = visible.size > 0;
-  writeState(state);
+  search.value = state.query;
+  for (const select of selects) select.value = state[select.dataset.filter];
+  count.textContent = `${visible.length} / ${roster.fighters.length} operatives`;
+  empty.hidden = visible.length > 0;
+  replaceUrl({ params: writeFilters(state) });
 }
 
 async function boot() {
   roster = await loadRoster(ROOT);
-  const state = readState();
-  const scale = statScale(roster.fighters);
+  const state = readFilters(new URLSearchParams(location.search));
   const load = async (id) => {
     if (!details.has(id)) details.set(id, fetch(`${ROOT}characters/data/${encodeURIComponent(id)}.json`).then((r) => { if (!r.ok) throw new Error(`${r.status}`); return r.json(); }));
     try { return await details.get(id); } catch (error) { details.delete(id); throw error; }
@@ -68,17 +64,15 @@ async function boot() {
     dialog: document.getElementById('dossier'),
     roster,
     root: ROOT,
-    scale,
+    scale: statScale(roster.fighters),
     load,
-    onClose: () => history.replaceState(null, '', location.pathname + location.search),
+    sequence: () => visible,
+    triggerOf: cardOf,
+    onShow: (fighter) => replaceUrl({ hash: `#${encodeURIComponent(fighter.id)}` }),
+    onClose: () => replaceUrl({ hash: '' }),
   });
-  const open = (fighter, trigger) => {
-    history.replaceState(null, '', `${location.pathname}${location.search}#${encodeURIComponent(fighter.id)}`);
-    dossier.open(fighter, trigger);
-  };
 
   const roles = countBy(roster.fighters, 'role');
-  const kits = countBy(roster.fighters, 'kit');
   legend.replaceChildren(...roster.classes.map((entry) => {
     const button = element('button', 'class-toggle shape');
     button.type = 'button';
@@ -90,19 +84,21 @@ async function boot() {
     button.addEventListener('click', () => { state.role = state.role === entry.id ? 'all' : entry.id; render(state); });
     return button;
   }));
-  for (const option of kitSelect.options) if (kits[option.value]) option.textContent += ` (${kits[option.value]})`;
+  // Each select filters one roster field and shows how many fighters each option holds.
+  for (const select of selects) {
+    const counts = countBy(roster.fighters, select.dataset.filter);
+    for (const option of select.options) if (counts[option.value]) option.textContent += ` (${counts[option.value]})`;
+    select.addEventListener('change', () => { state[select.dataset.filter] = select.value; render(state); });
+  }
 
   grid.replaceChildren(...roster.fighters.map((fighter, i) => {
     const item = paint(element('li', 'reveal'), fighter);
     item.style.setProperty('--reveal-delay', `${(i % 6) * 40}ms`);
-    item.append(card(fighter, open));
+    item.append(card(fighter, dossier.open));
     return item;
   }));
-  search.value = state.query;
-  kitSelect.value = state.kit;
   search.addEventListener('input', () => { state.query = search.value; render(state); });
-  kitSelect.addEventListener('change', () => { state.kit = kitSelect.value; render(state); });
-  document.getElementById('reset').addEventListener('click', () => { Object.assign(state, { query: '', role: 'all', kit: 'all' }); search.value = ''; kitSelect.value = 'all'; render(state); });
+  document.getElementById('reset').addEventListener('click', () => { Object.assign(state, clearFilters()); render(state); });
   render(state);
 
   document.querySelectorAll('[data-roster-count]').forEach((node) => { node.textContent = String(roster.fighters.length); });
@@ -119,7 +115,7 @@ async function boot() {
   observeReveals();
   glitchReveal(document.getElementById('archive-title'), 1400);
   const linked = roster.fighters.find((f) => f.id === decodeURIComponent(location.hash.slice(1)));
-  if (linked) open(linked, grid.querySelector(`[data-id="${linked.id}"]`));
+  if (linked) dossier.open(linked);
 }
 
 boot().catch((error) => {

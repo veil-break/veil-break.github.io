@@ -119,3 +119,10 @@
 .skill-chip small { color: var(--text-3); }
 .icon-button { --cut: var(--cut-sm); --fill: var(--raised); --edge: var(--line-strong); display: grid; place-items: center; inline-size: 48px; block-size: 48px; font: 400 1.1rem/1 var(--font-hud); color: var(--text); }
 .icon-button:hover { --edge: var(--text); }
+
+/* ── segmented: VbSegmented (cut 6, panel fill, line-strong edge; the option that is on turns ink on text) ── */
+.segmented { --cut: var(--cut-sm); --fill: var(--panel-solid); --edge: var(--line-strong); display: inline-flex; padding: 3px; gap: 2px; }
+.segmented__option { --opt-cut: 4px; min-inline-size: 40px; min-block-size: 32px; padding: 4px 10px; font: 700 var(--font-size-label)/1 var(--font-body); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--text-2); clip-path: polygon(var(--opt-cut) 0, 100% 0, 100% calc(100% - var(--opt-cut)), calc(100% - var(--opt-cut)) 100%, 0 100%, 0 var(--opt-cut)); transition: background var(--dur-press) var(--ease-out), color var(--dur-press) var(--ease-out); }
+.segmented__option:hover { color: var(--text); background: var(--raised); }
+.segmented__option[aria-checked="true"] { background: var(--seg-on, var(--text)); color: var(--on-cta); }
+.segmented__option:focus-visible { outline-offset: -2px; }

@@ -36,6 +36,9 @@
   .fighter-card__code { position: absolute; inset: auto 8px -0.14em auto; font: 700 5.5rem/0.8 var(--font-display); color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, var(--signal) 55%, transparent); }
   .fighter-card__body { display: grid; gap: 4px; padding: 14px 16px 18px; align-content: start; }
   .fighter-card__meta { display: flex; align-items: center; gap: 8px; color: var(--tone); }
+  .fighter-card__rarity--rare { color: var(--rarity-rare); }
+  .fighter-card__rarity--epic { color: var(--rarity-epic); }
+  .fighter-card__rarity--legendary { color: var(--rarity-legendary); }
   .fighter-card__name { font: 700 1.6rem/1 var(--font-display); text-transform: uppercase; }
   .fighter-card__callsign { color: var(--text-3); font-size: 0.875rem; }
   .fighter-card .chip { justify-self: start; margin-block-start: 6px; }
@@ -61,6 +64,10 @@
   .dossier__code { position: absolute; inset: auto 0 -0.12em; text-align: center; font: 700 clamp(7rem, 15vw, 13rem)/0.8 var(--font-display); color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, var(--signal) 50%, transparent); }
   @keyframes fighter-rise { from { opacity: 0; translate: 0 4%; filter: brightness(3) blur(4px); } }
   .dossier__scroll { overflow-y: auto; overscroll-behavior: contain; scrollbar-color: var(--line-strong) transparent; }
+  .dossier__controls { display: flex; align-items: center; gap: 6px; flex: none; }
+  .dossier__controls .icon-button { inline-size: 44px; block-size: 44px; }
+  .dossier__controls .icon-button:disabled { opacity: 0.35; cursor: default; }
+  .dossier__counter { min-inline-size: 6ch; text-align: center; }
   .dossier__head { position: sticky; inset-block-start: 0; z-index: 2; display: flex; justify-content: space-between; align-items: start; gap: 16px; padding: 24px 28px 16px; background: linear-gradient(var(--panel-solid) 80%, transparent); }
   .dossier__identity { display: grid; gap: 8px; }
   .dossier__name { font-size: clamp(2.6rem, 5vw, 4.4rem); color: var(--text); text-shadow: 0 0 36px color-mix(in srgb, var(--signal) 50%, transparent); }
@@ -77,19 +84,26 @@
   .dossier__section p { color: var(--text-2); }
   .dossier__quote { padding-inline-start: 18px; border-inline-start: 2px solid var(--signal); font-style: italic; color: var(--text-2); }
 
-  .ability { --fill: var(--panel); --edge: var(--line); display: grid; gap: 12px; padding: 18px 20px; }
-  .ability__head { display: flex; align-items: center; gap: 14px; }
-  .ability__head h3 { font-size: 1.5rem; }
-  .ability__head .hud { color: var(--signal); }
-  .ability__text { color: var(--text-2); }
-  .ability__meta { color: var(--ally-text); }
-  .ranks { display: grid; gap: 8px; padding: 0; list-style: none; }
-  .ranks__step { display: grid; gap: 2px; padding: 10px 12px; border-inline-start: 2px solid var(--line-strong); background: color-mix(in srgb, var(--raised) 40%, transparent); }
-  .ranks__step:nth-child(2) { border-color: color-mix(in srgb, var(--signal) 60%, transparent); }
-  .ranks__step:nth-child(3) { border-color: var(--signal); background: color-mix(in srgb, var(--signal) 10%, transparent); }
-  .ranks__step p { color: var(--text-2); font-size: 0.92rem; }
-  .ranks__rank { color: var(--signal); }
-  .disclosure > summary { cursor: pointer; color: var(--text-3); padding-block: 6px; }
+  /* abilities: compact cards; each carries its own rank toggle, the bar above sets every card at once */
+  .dossier__panel--abilities { gap: 10px; }
+  .abilities__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block-end: 4px; }
+  .abilities__bar .segmented { --seg-on: var(--signal); }
+  .ability { --cut: var(--cut-sm); --fill: var(--panel); --edge: var(--line); display: grid; gap: 6px; padding: 12px 14px 10px; }
+  .ability[data-rank="3"] { --edge: linear-gradient(100deg, color-mix(in srgb, var(--signal) 55%, transparent), var(--line) 40%); }
+  .ability[data-rank="5"] { --edge: linear-gradient(100deg, var(--signal), var(--line) 55%); --fill: linear-gradient(100deg, color-mix(in srgb, var(--signal) 10%, var(--panel-solid)), var(--panel) 60%); }
+  .ability__head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px; }
+  .ability__title { display: grid; min-inline-size: 0; }
+  .ability__title h3 { font-size: 1.15rem; line-height: 1.1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ability__title .hud { color: var(--signal); line-height: 1.2; }
+  .ability__ranks { --seg-on: var(--signal); }
+  .ability__ranks .segmented__option { min-inline-size: 34px; min-block-size: 28px; padding: 3px 7px; }
+  .ability__meta { color: var(--ally-text); font-size: 0.68rem; }
+  .ability__form { display: grid; gap: 2px; animation: rank-in var(--dur-ui) var(--ease-out); }
+  .ability__rank { color: var(--signal); font-size: 0.68rem; }
+  .ability__text { color: var(--text-2); font-size: 0.9rem; line-height: 1.55; }
+  @keyframes rank-in { from { opacity: 0; translate: 6px 0; } }
+  .disclosure > summary { cursor: pointer; color: var(--text-3); padding-block: 2px; inline-size: max-content; }
+  .disclosure > summary:hover { color: var(--text); }
 
   .dossier__panel--artwork { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .art { display: grid; gap: 6px; margin: 0; }
@@ -130,6 +144,10 @@
     .filters__count { margin-inline-start: 0; padding-block-end: 0; }
   }
   @media (max-width: 480px) {
+    .dossier__head { flex-direction: column-reverse; align-items: stretch; gap: 8px; padding-block-start: 14px; }
+    .dossier__controls { justify-content: flex-end; }
+    .dossier__controls .icon-button { inline-size: 40px; block-size: 40px; }
+    .abilities__bar > .hud { display: none; }
     .fighter-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
     .fighter-card__body { padding: 10px 12px 14px; }
     .fighter-card__name { font-size: 1.25rem; }
