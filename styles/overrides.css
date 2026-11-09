@@ -4,6 +4,6 @@
   .reveal { opacity: 1; translate: none; }
 }
 @media print {
-  .site-header, .splash-screen, .breach-effects, .veil-canvas, .scanlines, .skip-link { display: none !important; }
+  .site-header, .splash-screen, .breach-effects, .backdrop, .scanlines, .skip-link { display: none !important; }
   body { background: #fff; color: #000; }
 }

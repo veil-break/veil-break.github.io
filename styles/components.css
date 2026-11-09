@@ -88,7 +88,8 @@
 .split-title::after { content: ""; position: absolute; inset: 38% 0; background: linear-gradient(to bottom right, transparent calc(50% - 1.5px), var(--text) 50%, transparent calc(50% + 1.5px)); filter: drop-shadow(0 0 10px var(--signal-pink)); opacity: var(--blade-opacity, 0.85); pointer-events: none; }
 
 /* ── overlays ── */
-.scanlines { position: absolute; inset: 0; pointer-events: none; background: var(--scan-lines); mix-blend-mode: multiply; opacity: 0.55; }
+/* plain alpha, no blend mode: a blended full-screen layer recomposites everything beneath it every frame */
+.scanlines { position: absolute; inset: 0; pointer-events: none; background: var(--scan-lines); opacity: 0.5; }
 .corner-frame { position: absolute; inset: var(--site-gutter); pointer-events: none; --len: 22px; background:
   linear-gradient(var(--line-strong), var(--line-strong)) top left / var(--len) 1px,
   linear-gradient(var(--line-strong), var(--line-strong)) top left / 1px var(--len),

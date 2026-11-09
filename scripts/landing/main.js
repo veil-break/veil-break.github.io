@@ -2,11 +2,11 @@ import { createBreachEffects } from '../breach-effects.js';
 import { observeReveals, reducedMotion, glitchReveal } from '../lib/motion.js';
 import { loadRoster, seeded } from '../lib/roster.js';
 import { mountTerminal } from '../terminal.js';
+import { createBackdrop } from './backdrop.js';
 import { renderClasses } from './classes.js';
 import { deploySquad, mountHero } from './hero.js';
 import { createIntro } from './intro.js';
 import { mountSpotlight } from './spotlight.js';
-import { createVeil } from './veil.js';
 
 const ROOT = './';
 const motion = reducedMotion;
@@ -14,7 +14,7 @@ const hero = document.getElementById('breach');
 const squadSlots = [...document.querySelectorAll('.hero__fighter')];
 const terminalWindow = document.getElementById('terminal');
 const effects = createBreachEffects({ canvas: document.getElementById('breach-effects'), motion });
-const veil = createVeil(document.getElementById('veil'), { motion });
+const backdrop = createBackdrop(document.getElementById('backdrop'), { motion });
 let faultTimer;
 
 // Terminal: every command fails as text; each failure glitches the window and its canvas.
@@ -33,11 +33,11 @@ const intro = createIntro({
   motion,
   surface: () => document.querySelector('.hero__copy'),
   image: () => squadSlots[1],
-  onHandoff: () => { veil.start(); glitchReveal(document.getElementById('hero-word'), 1600); },
+  onHandoff: () => { backdrop.start(); glitchReveal(document.getElementById('hero-word'), 1600); },
   onLive: () => observeReveals(),
 });
 
-mountHero({ hero, veil, motion });
+mountHero({ hero, backdrop, motion });
 
 const header = document.getElementById('site-header');
 const solid = () => header.toggleAttribute('data-solid', window.scrollY > hero.offsetHeight * 0.6);

@@ -7,7 +7,8 @@ design-system (veilbreak-design-system) -> vendor/veilbreak/gui/ (the @veilbreak
 Both producers are sibling checkouts in a veilbreak workspace. Every output is a derived view: edit
 the producers, then rerun this tool. `--check` writes nothing and exits 1 when any output is stale.
 Images are re-encoded only when their source bytes change (characters/media/manifest.json), so
-`--check` never depends on the local WebP encoder build. Images need Pillow (`pip install pillow`).
+`--check` never depends on the local WebP encoder build, and it compares git lfs pointers by their oid, so it needs no
+lfs objects either. Images need Pillow (`pip install pillow`).
 """
 
 from __future__ import annotations
@@ -16,6 +17,7 @@ import argparse
 import hashlib
 import io
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -57,6 +59,15 @@ def commit_of(root: Path) -> str:
 
 def lfs_pointer(data: bytes) -> bool:
     return data.startswith(b'version https://git-lfs.github.com/spec/')
+
+
+def content_digest(data: bytes) -> str:
+    """sha256 of the content; a git lfs pointer already names it (its oid), so no object fetch is needed to compare."""
+    if lfs_pointer(data):
+        match = re.search(rb'oid sha256:([0-9a-f]{64})', data)
+        if match:
+            return match.group(1).decode()
+    return sha256(data)
 
 
 class Outputs:
@@ -139,15 +150,15 @@ class ImageCache:
 
     def webp(self, source: Path, relative: str, box: tuple[int, int], quality: int) -> str:
         data = source.read_bytes()
-        if lfs_pointer(data):
-            sys.exit(f'{source} is a git lfs pointer: run `git lfs pull` in the characters checkout')
         recipe = f'webp q{quality} m{WEBP_METHOD} {box[0]}x{box[1]} alpha>={ALPHA_FLOOR}'
-        digest, target = f'{sha256(data)} {recipe}', SITE / relative
+        digest, target = f'{content_digest(data)} {recipe}', SITE / relative
         self.manifest[relative] = digest
         if self.previous.get(relative) == digest and target.is_file():
             return self.outputs.put(relative, target.read_bytes())
         if self.check:
             return self.outputs.put(relative, b'')  # stale: the manifest names a different source
+        if lfs_pointer(data):
+            sys.exit(f'{source} changed and is a git lfs pointer: run `git lfs pull` in the characters checkout')
         from PIL import Image  # noqa: PLC0415  (only an image change needs Pillow)
 
         image = Image.open(io.BytesIO(data))

@@ -4,25 +4,32 @@ import { perFrame } from '../lib/motion.js';
 const FLICKER_MS = 1400;
 
 /**
- * Hero state → CSS variables: --px/--py (pointer, -1..1) and --hero-progress (0..1 over the hero's height).
- * The view (styles/pages/landing.css) owns every transform; this only writes numbers.
+ * Hero and backdrop state → numbers: --px/--py (pointer, -1..1) and --hero-progress (0..1 over the hero's height) as
+ * CSS variables for the hero, pointer drift and scroll depth for the backdrop canvas. The views own every transform.
  */
-export function mountHero({ hero, veil, motion }) {
-  const write = perFrame((x, y) => { hero.style.setProperty('--px', x.toFixed(3)); hero.style.setProperty('--py', y.toFixed(3)); });
+export function mountHero({ hero, backdrop, motion }) {
+  const write = perFrame((x, y) => {
+    hero.style.setProperty('--px', x.toFixed(3));
+    hero.style.setProperty('--py', y.toFixed(3));
+    backdrop.setPointer(x);
+  });
   const scroll = perFrame(() => {
+    const depth = document.documentElement.scrollHeight - window.innerHeight;
     const progress = Math.min(1, Math.max(0, window.scrollY / hero.offsetHeight));
     hero.style.setProperty('--hero-progress', progress.toFixed(3));
-    veil.setOpen(0.15 + progress * 0.85);
+    // The city climbs as the page descends; past the hero the scene steps back behind the copy.
+    backdrop.setScroll(depth > 0 ? window.scrollY / depth : 0, Math.max(0, (window.scrollY - hero.offsetHeight * 0.35) / (hero.offsetHeight * 0.8)) * 0.62);
   });
 
   if (!motion.matches) {
-    hero.addEventListener('pointermove', (event) => {
+    window.addEventListener('pointermove', (event) => {
       if (event.pointerType !== 'mouse') return;
       write((event.clientX / window.innerWidth) * 2 - 1, (event.clientY / window.innerHeight) * 2 - 1);
-    });
-    hero.addEventListener('pointerleave', () => write(0, 0));
+    }, { passive: true });
+    document.documentElement.addEventListener('pointerleave', () => write(0, 0));
   }
   window.addEventListener('scroll', scroll, { passive: true });
+  window.addEventListener('resize', scroll, { passive: true });
   scroll();
 
   // HUD readouts drift like live telemetry; numbers only, no layout.

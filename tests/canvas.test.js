@@ -1,6 +1,6 @@
 import { expect, test } from 'bun:test';
 import { breachPalette, rgbTriplet } from '../scripts/lib/color.js';
-import { createEmbers, createRain, particleBudget, riftPoints, wrap } from '../scripts/landing/veil-field.js';
+import { createEmbers, createRain, particleBudget, wrap } from '../scripts/landing/veil-field.js';
 
 test('token hex colours convert for canvas rgba strings', () => {
   expect(rgbTriplet('#ff40a0')).toBe('255, 64, 160');
@@ -31,13 +31,4 @@ test('fields are deterministic and normalised', () => {
   }
   expect(wrap(1.25)).toBeCloseTo(0.25);
   expect(wrap(-0.25)).toBeCloseTo(0.75);
-});
-
-test('the rift spans top to bottom, tapers at both ends and flickers per frame bucket', () => {
-  const points = riftPoints(0, 0.5);
-  expect(points[0][1]).toBe(0);
-  expect(points.at(-1)[1]).toBe(1);
-  expect(points[0][2]).toBeCloseTo(0);
-  expect(riftPoints(10, 0.5)).toEqual(riftPoints(80, 0.5));
-  expect(riftPoints(10, 0.5)).not.toEqual(riftPoints(100, 0.5));
 });

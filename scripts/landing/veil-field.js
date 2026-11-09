@@ -1,4 +1,4 @@
-/** Pure, deterministic particle fields for the hero's veil canvas (normalised 0..1 space). No DOM. */
+/** Pure, deterministic weather for the landing backdrop (normalised 0..1 space): rain and embers. No DOM. */
 import { noise } from '../shatter-geometry.js';
 
 /** Particle counts scale with the viewport area and stay inside a fixed budget. */
@@ -32,18 +32,4 @@ export function createEmbers(count) {
 /** Advance a normalised coordinate and wrap it into 0..1. */
 export function wrap(value) {
   return value - Math.floor(value);
-}
-
-/**
- * The rift: a jagged vertical tear around x = 0.5. The jag re-rolls every `frameMs` so it flickers like a bad
- * signal rather than wobbling smoothly; `open` (0..1) widens the tear.
- */
-export function riftPoints(time, open, segments = 22, frameMs = 90) {
-  const tick = Math.floor(time / frameMs);
-  return Array.from({ length: segments + 1 }, (_, i) => {
-    const y = i / segments;
-    const taper = Math.sin(Math.PI * Math.min(1, Math.max(0, (y - 0.02) / 0.96)));
-    const jag = (noise(i, tick) - 0.5) * 0.05 + (noise(i, 7) - 0.5) * 0.03;
-    return [0.5 + jag * (0.4 + open), y, taper * (0.004 + open * 0.02)];
-  });
 }

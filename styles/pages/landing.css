@@ -34,7 +34,7 @@
   @keyframes fighter-in {
     0% { opacity: 0; transform: translateY(10%) scale(1.06); filter: brightness(4) saturate(0) blur(6px); }
     35% { opacity: 0.6; filter: brightness(2) saturate(0.4) blur(1px); }
-    100% { opacity: 1; transform: none; filter: var(--fighter-filter, none); }
+    100% { opacity: var(--fighter-opacity, 1); transform: none; filter: none; }
   }
   /* ends on none, not inset(0): a clip at rest would cut the drop-shadow glow into the image's box */
   @keyframes fighter-signal {
@@ -58,16 +58,12 @@
     min-block-size: max(100svh, 640px);
     overflow: clip;
     isolation: isolate;
-    background:
-      radial-gradient(120% 70% at 50% 110%, var(--scene-fog) 0%, transparent 60%),
-      linear-gradient(var(--site-ground), var(--scene-ground) 70%, var(--site-ground));
   }
-  .hero__sky { position: absolute; inset: 0; z-index: 0; background:
-      radial-gradient(38% 55% at 50% 42%, color-mix(in srgb, var(--scene-neon) 30%, transparent), transparent 70%),
-      radial-gradient(22% 40% at 50% 30%, color-mix(in srgb, var(--signal-pink) 22%, transparent), transparent 70%);
-    opacity: calc(1 - var(--hero-progress) * 0.6);
-    translate: calc(var(--px) * -10px) calc(var(--py) * -8px); }
-  .veil-canvas { position: absolute; inset: 0; z-index: 1; inline-size: 100%; block-size: 100%; }
+
+  /* ── backdrop: one fixed canvas behind the whole page (scripts/landing/backdrop.js); the page scrolls over it ── */
+  .backdrop { position: fixed; inset: 0 auto auto 0; z-index: 0; inline-size: 100%; block-size: 100lvh; pointer-events: none; background: var(--site-ground); }
+  body:has(> .backdrop) { background: transparent; }
+  body:has(> .backdrop) > :is(main, .site-footer) { position: relative; z-index: 1; }
 
   .hero__squad { position: absolute; inset: auto 0 0; z-index: 3; block-size: min(94svh, 1100px); pointer-events: none; }
   .hero__fighter {
@@ -81,20 +77,23 @@
     transform-origin: 50% 100%;
     translate: calc(-50% + var(--offset, 0%) + var(--px) * var(--depth, 0) * 1px) calc(var(--py) * var(--depth, 0) * 0.4px);
     scale: var(--size, 1);
-    filter: var(--fighter-filter, none);
+    opacity: var(--fighter-opacity, 1);
   }
-  .hero__fighter[data-slot="1"] { --depth: 14; --enter-delay: 150ms; z-index: 2; --fighter-filter: drop-shadow(0 0 40px color-mix(in srgb, var(--scene-neon) 45%, transparent)); }
-  .hero__fighter:is([data-slot="0"], [data-slot="2"]) { --size: 0.8; --depth: -10; --fighter-filter: brightness(0.55) saturate(0.8) blur(0.5px); z-index: 1; }
+  .hero__fighter[data-slot="1"] { --depth: 14; --enter-delay: 150ms; z-index: 2; }
+  /* side fighters recede into the haze with opacity: filters re-run on every frame the backdrop under them changes */
+  .hero__fighter:is([data-slot="0"], [data-slot="2"]) { --size: 0.8; --depth: -10; --fighter-opacity: 0.58; z-index: 1; }
+  /* the centre fighter's backlight is a gradient behind the squad, not a filter on the image */
+  .hero__squad::before { content: ""; position: absolute; inset: 0 25% 10%; z-index: 0; background: radial-gradient(50% 45% at 50% 40%, color-mix(in srgb, var(--scene-neon) 38%, transparent), transparent 70%); translate: calc(var(--px) * 14px) 0; }
   .hero__fighter[data-slot="0"] { --offset: -38%; --enter-delay: 380ms; }
   .hero__fighter[data-slot="2"] { --offset: 38%; --enter-delay: 520ms; }
-  .hero__fog { position: absolute; inset: auto 0 0; z-index: 4; block-size: 46%; pointer-events: none; background: linear-gradient(transparent, color-mix(in srgb, var(--site-ground) 70%, transparent) 45%, var(--site-ground)); }
+  .hero__fog { position: absolute; inset: auto 0 0; z-index: 4; block-size: 46%; pointer-events: none; background: linear-gradient(transparent, color-mix(in srgb, var(--site-ground) 55%, transparent) 50%, color-mix(in srgb, var(--site-ground) 82%, transparent)); }
 
   /* the copy box makes no stacking context (no opacity or transform), so each line joins the hero's layers above the fog */
-  .hero__copy { grid-row: 2; display: grid; justify-items: center; text-align: center; gap: var(--site-space-2); padding-block-end: clamp(64px, 11vh, 128px); }
-  .hero__copy > * { position: relative; z-index: 5; transform: translateY(calc(var(--hero-progress) * -70px)); filter: opacity(calc(1 - var(--hero-progress) * 1.4)); }
+  .hero__copy { position: relative; z-index: 5; grid-row: 2; display: grid; justify-items: center; text-align: center; gap: var(--site-space-2); padding-block-end: clamp(64px, 11vh, 128px); translate: 0 calc(var(--hero-progress) * -70px); opacity: calc(1 - var(--hero-progress) * 1.4); }
   .hero__title { font-size: var(--fs-hero); line-height: 0.82; letter-spacing: -0.035em; margin-block: 0 -0.08em; }
   /* glow on the solid half only: a text-shadow under background-clip: text paints its whole box */
-  .hero__title .split-title__top { color: var(--text); text-shadow: 0 0 60px color-mix(in srgb, var(--scene-neon) 60%, transparent); }
+  /* the CRT raster lives in the title's own fill (static), not in a full-screen layer over a live canvas */
+  .hero__title .split-title__top { color: transparent; background: repeating-linear-gradient(0deg, var(--text) 0 3px, color-mix(in srgb, var(--text) 62%, transparent) 3px 4px); -webkit-background-clip: text; background-clip: text; filter: drop-shadow(0 0 30px color-mix(in srgb, var(--scene-neon) 55%, transparent)); }
   .hero__eyebrow { padding: 4px 10px; background: color-mix(in srgb, var(--site-ground) 72%, transparent); }
   .hero__tagline { font: 400 var(--fs-h3)/1.2 var(--font-display); text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-2); text-shadow: var(--text-halo); }
   .hero__tagline strong { color: var(--text); font-weight: 700; }
@@ -105,7 +104,6 @@
   .hero__scroll { position: absolute; z-index: 5; inset: auto 0 18px; margin-inline: auto; inline-size: max-content; display: grid; justify-items: center; gap: 2px; text-decoration: none; }
   .hero__scroll span[aria-hidden] { animation: nudge 1.6s var(--ease-in-out) infinite; }
   .hero .corner-frame { z-index: 5; inset: calc(var(--site-header) + 4px) var(--site-gutter) var(--site-gutter); }
-  .hero .scanlines { z-index: 6; }
   @keyframes nudge { 50% { translate: 0 6px; } }
 
   /* ── premise: lines light as they cross the middle of the viewport ── */
@@ -210,7 +208,7 @@
     .hero__fighter[data-slot="0"] { --offset: -48%; }
     .hero__fighter[data-slot="2"] { --offset: 48%; }
     .hero__squad { block-size: min(72svh, 150vw); inset-block-end: 20%; }
-    .hero__fog { block-size: 64%; background: linear-gradient(transparent, color-mix(in srgb, var(--site-ground) 82%, transparent) 38%, var(--site-ground) 70%); }
+    .hero__fog { block-size: 64%; background: linear-gradient(transparent, color-mix(in srgb, var(--site-ground) 78%, transparent) 38%, color-mix(in srgb, var(--site-ground) 88%, transparent) 70%); }
     .hero__readout { display: none; }
     .hero__deployed { inset: auto var(--site-gutter) 64px auto; font-size: 0.65rem; }
     .hero__scroll { display: none; }
