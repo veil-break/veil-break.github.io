@@ -1,7 +1,10 @@
-/* main.css — entry stylesheet adhering to semantic-html-skill layer architecture */
-@layer reset, tokens, base, layout, components, utilities, overrides;
+/* main.css — the one entry both pages load. Layer order is declared once, here.
+   kit: the vendored @veilbreak/gui tokens (vendor/veilbreak/gui, synced by tools/sync.py) — the only colour, type,
+   motion and cut authority. tokens: site-level aliases onto the kit; never a raw colour. */
+@layer reset, kit, tokens, base, layout, components, pages, utilities, overrides;
 
 @import url("reset.css") layer(reset);
+@import url("../vendor/veilbreak/gui/tokens.css") layer(kit);
 @import url("tokens.css") layer(tokens);
 @import url("base.css") layer(base);
 @import url("layout.css") layer(layout);

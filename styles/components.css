@@ -1,80 +1,129 @@
-.term-muted { color: var(--color-muted); font-size: 0.875rem; }
-.term-genre, .terminal-prompt label { color: var(--color-signal); }
-.term-genre { letter-spacing: 0.06em; }
-.term-prose { max-inline-size: 60ch; }
-.term-command { color: var(--color-muted); white-space: pre-wrap; }
-.term-error { color: var(--color-fault); }
-.terminal-dots { letter-spacing: 0.25em; color: var(--color-muted); font-size: 0.625rem; }
-.terminal-status { color: var(--color-fault); }
-.run-command { color: var(--color-muted); min-inline-size: 2rem; min-block-size: 2rem; }
-.splash-screen { position: fixed; inset: 0; z-index: 2; background: var(--color-ground); overflow: hidden; }
-#splash-animation, .vbs-canvas-wrap { position: absolute; inset: 0; display: grid; place-items: center; }
-#splash-animation > img { inline-size: min(65vw, 28rem); }
-.vbs-svg { inline-size: 100%; block-size: 100%; }
-.splash-controls { position: absolute; inset: auto 0 1.5rem; display: flex; justify-content: center; gap: var(--space-medium); font-size: 0.75rem; color: var(--color-muted); }
-.splash-controls button { padding: var(--space-small); }
-body[data-phase="splash"] .terminal-stage { visibility: hidden; }
-body[data-phase="handoff"] .splash-screen { animation: splash-dissolve var(--handoff-duration) linear both; }
-body[data-phase="handoff"] .terminal-window { animation: terminal-arrive var(--handoff-duration) linear both; }
+/* components.css — the shared pieces of both pages, on the kit's vocabulary.
+   .shape ports VbShape (Tools~/web/kit.js paint) to CSS without JS: --vb-cut-side 0 chamfers the top-left and
+   bottom-right corners. ::before is the fill, clipped to the outline; ::after is the frame, clipped to the ring between
+   the outline and the outline inset by --bw (the kit's inner corner, cut + bw × 0.4142). The element itself is not
+   clipped, so a filter glow (the kit's --vb-glow) bleeds outside the cut; .shape--clip also clips the content. */
 
-.terminal-window::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; background: repeating-linear-gradient(0deg, transparent 0 5px, #48f5ef14 5px 6px); }
-.terminal-window.has-fault { animation: command-fault var(--fault-duration) steps(1) both; }
-.terminal-window.has-fault::after { opacity: 1; }
-@keyframes splash-dissolve {
-  0% { opacity: 1; transform: translateX(0); }
-  15% { opacity: 0.95; transform: translateX(-18px); clip-path: inset(0); }
-  24% { opacity: 0.9; transform: translateX(32px); clip-path: polygon(0 0,100% 0,100% 35%,0 35%,0 41%,100% 41%,100% 78%,0 78%); }
-  38% { opacity: 0.65; transform: translateX(-24px); clip-path: inset(0); }
-  60% { opacity: 0.4; transform: translateX(14px); }
-  82% { opacity: 0.15; transform: translateX(-8px); }
-  100% { opacity: 0; transform: translateX(0); }
+/* ── shape ── */
+.shape {
+  --cut: var(--cut-md);
+  --bw: 1px;
+  --fill: var(--panel);
+  --edge: var(--line-strong);
+  --d: calc(var(--cut) + var(--bw) * 0.4142);
+  --outline: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+  position: relative;
+  isolation: isolate;
 }
-@keyframes terminal-arrive {
-  0% { opacity: 0.05; transform: translateX(-40px) scaleY(0.92); }
-  18% { opacity: 0.3; transform: translateX(28px); }
-  32% { opacity: 0.65; transform: translateX(-24px); text-shadow: 6px 0 var(--color-fault), -6px 0 var(--color-cyan); }
-  48% { opacity: 0.5; transform: translateX(18px); clip-path: inset(12% 0 8%); }
-  64% { opacity: 0.85; transform: translateX(-12px); clip-path: inset(0); }
-  80% { opacity: 0.95; transform: translateX(6px); text-shadow: -3px 0 var(--color-fault), 3px 0 var(--color-cyan); }
-  100% { opacity: 1; transform: none; text-shadow: none; }
+.shape::before, .shape::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.shape::before { background: var(--fill); clip-path: var(--outline); }
+.shape::after {
+  background: var(--edge);
+  clip-path: polygon(evenodd,
+    var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut), var(--cut) 0,
+    var(--d) var(--bw), calc(100% - var(--bw)) var(--bw), calc(100% - var(--bw)) calc(100% - var(--d)), calc(100% - var(--d)) calc(100% - var(--bw)), var(--bw) calc(100% - var(--bw)), var(--bw) var(--d), var(--d) var(--bw));
 }
-@keyframes command-fault {
-  0%, 100% { transform: none; text-shadow: none; }
-  14%, 45% { transform: translateX(-10px); text-shadow: 3px 0 var(--color-fault), -3px 0 var(--color-cyan); }
-  28%, 62% { transform: translateX(8px); clip-path: inset(1% 0 2%); }
-  80% { transform: translateX(-3px); clip-path: inset(0); }
-}
+.shape--clip { clip-path: var(--outline); }
+.shape--lg { --cut: var(--cut-lg); }
+.shape--sm { --cut: var(--cut-sm); }
 
-.breach-effects { position: fixed; inset: 0; z-index: 4; inline-size: 100%; block-size: 100%; pointer-events: none; }
-body[data-phase="handoff"] .vbs-hex { visibility: hidden; }
-body[data-phase="handoff"] .splash-controls { visibility: hidden; }
-.operative { opacity: 0.85; mix-blend-mode: screen; mask-image: radial-gradient(ellipse at 53% 43%, #000 38%, #000b 65%, transparent 78%); }
-.operative::before, .operative::after { content: ""; position: absolute; inset: 0; background: url("../assets/character-cutout.png") center / contain no-repeat; opacity: 0; }
-.operative::before { filter: sepia(1) saturate(6) hue-rotate(120deg); }
-.operative::after { filter: sepia(1) saturate(7) hue-rotate(280deg); }
-body[data-phase="handoff"] .operative { animation: operative-reveal var(--operative-duration) linear var(--operative-delay) both; }
-body[data-phase="handoff"] .operative::before, body[data-phase="handoff"] .operative::after { animation: operative-slices var(--operative-duration) steps(1) var(--operative-delay) both; }
-body[data-phase="handoff"] .operative::after { animation-direction: reverse; }
-body[data-phase="handoff"] .terminal-composition { animation: crt-lock var(--handoff-duration) linear both; }
-@keyframes operative-reveal {
-  0% { opacity: 0; transform: translateX(35px); clip-path: inset(0 0 100%); }
-  14% { opacity: 0.18; transform: translateX(-26px); clip-path: inset(0 0 65%); }
-  30% { opacity: 0.45; transform: translateX(18px); clip-path: polygon(0 0,100% 0,100% 30%,20% 30%,20% 45%,100% 45%,100% 100%,0 100%); }
-  46% { opacity: 0.3; transform: translateX(-12px); clip-path: inset(0); }
-  68% { opacity: 0.7; transform: translateX(9px); filter: contrast(1.6) saturate(0.3); }
-  84% { opacity: 0.6; transform: translateX(-4px); }
-  100% { opacity: 0.85; transform: none; filter: none; clip-path: inset(0); }
+/* ── button: VbButton's variants (primary: enemy → ally fill and edge with the cta glow; secondary: raised, no edge) ── */
+.button {
+  --cut: var(--cut-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--site-space-3);
+  min-block-size: 48px;
+  padding: 10px 18px;
+  font: 700 var(--font-size-label-lg)/1.1 var(--font-body);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text);
+  transition: scale var(--dur-press) var(--ease-out), filter var(--dur-ui) var(--ease-out);
 }
-@keyframes operative-slices {
-  0%, 100% { opacity: 0; transform: none; clip-path: inset(0); }
-  15%, 45% { opacity: 0.65; transform: translateX(-28px); clip-path: inset(18% 0 55%); }
-  30%, 62% { opacity: 0.5; transform: translateX(24px); clip-path: inset(56% 0 22%); }
-  80% { opacity: 0.35; transform: translateX(-14px); clip-path: inset(35% 0 55%); }
+.button:active { scale: 0.97; }
+.button__arrow { font-family: var(--font-hud); transition: translate var(--dur-ui) var(--ease-snap); }
+.button:hover .button__arrow { translate: 4px 0; }
+.button--primary {
+  --cut: var(--cut-lg);
+  --bw: 1.5px;
+  --edge: linear-gradient(12deg, var(--enemy), var(--ally));
+  --fill: linear-gradient(12deg, color-mix(in srgb, var(--enemy) 50%, transparent), color-mix(in srgb, var(--ally) 50%, transparent)), var(--panel-solid);
+  min-block-size: 60px;
+  padding-inline: 22px;
+  filter: var(--glow-cta);
 }
-@keyframes crt-lock {
-  0% { transform: perspective(1100px) rotateX(5deg) scale(0.97, 0.04); filter: blur(3px); }
-  14% { transform: perspective(1100px) rotateX(-3deg) scale(1.02, 0.65); filter: blur(2px); }
-  32% { transform: perspective(1100px) rotateY(2deg) scale(1.01, 0.98); filter: blur(1px); }
-  55% { transform: perspective(1100px) rotateX(-1deg) scale(0.995, 1.01); filter: none; }
-  80%, 100% { transform: none; filter: none; }
-}
+.button--primary:hover { filter: var(--glow-cta) brightness(1.15); }
+.button--secondary { --fill: var(--raised); --edge: var(--raised); }
+.button--secondary:hover { --edge: var(--line-strong); }
+.button--quiet { --fill: transparent; --edge: var(--line-strong); }
+.button--quiet:hover { --edge: var(--text); }
+
+/* ── labels: the HUD readout voice ── */
+.hud { font: 400 var(--fs-hud)/1.5 var(--font-hud); letter-spacing: var(--tracking-hud); text-transform: uppercase; color: var(--text-3); }
+.eyebrow { display: inline-flex; align-items: center; gap: 10px; font: 400 var(--fs-hud)/1.4 var(--font-hud); letter-spacing: var(--tracking-hud); text-transform: uppercase; color: var(--ally-text); }
+.eyebrow::before { content: ""; inline-size: 28px; block-size: 1px; background: currentColor; }
+.label { font: 700 var(--font-size-label)/1.2 var(--font-body); letter-spacing: var(--tracking-label); text-transform: uppercase; }
+
+/* ── icon: monochrome producer SVGs (currentColor) painted through a mask in any tone ── */
+.mask-icon { display: inline-block; flex: none; inline-size: var(--icon-size, 28px); block-size: var(--icon-size, 28px); background: var(--icon-tone, currentColor); -webkit-mask: var(--icon) center / contain no-repeat; mask: var(--icon) center / contain no-repeat; }
+
+/* ── chips: role, rarity and kit status; a colour never travels without its word ── */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 9px; border: 1px solid var(--chip-edge, var(--line-strong)); color: var(--chip-ink, var(--text-2)); font: 400 var(--font-size-label-sm)/1.3 var(--font-hud); letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap; }
+.chip--rare { --chip-ink: var(--rarity-rare); --chip-edge: color-mix(in srgb, var(--rarity-rare) 45%, transparent); }
+.chip--epic { --chip-ink: var(--rarity-epic); --chip-edge: color-mix(in srgb, var(--rarity-epic) 45%, transparent); }
+.chip--legendary { --chip-ink: var(--rarity-legendary); --chip-edge: color-mix(in srgb, var(--rarity-legendary) 45%, transparent); }
+.chip--hypothesis { --chip-ink: var(--warn); --chip-edge: color-mix(in srgb, var(--warn) 40%, transparent); border-style: dashed; }
+.chip--authored { --chip-ink: var(--ally-text); --chip-edge: color-mix(in srgb, var(--ally) 40%, transparent); }
+
+/* ── split title: the slash-cut through a word (the branding mark's blade), two clipped copies shear apart ── */
+.split-title { position: relative; display: inline-grid; isolation: isolate; }
+.split-title > * { grid-area: 1 / 1; }
+.split-title__top { clip-path: polygon(0 0, 100% 0, 100% 38%, 0 62%); }
+.split-title__bottom { clip-path: polygon(0 62%, 100% 38%, 100% 100%, 0 100%); translate: var(--shear, 0.04em) 0.012em; color: transparent; background: var(--breach-gradient); -webkit-background-clip: text; background-clip: text; }
+/* the blade sits on the cut: within a box from 38% to 62% tall, "to bottom right" isolines run corner to corner */
+.split-title::after { content: ""; position: absolute; inset: 38% 0; background: linear-gradient(to bottom right, transparent calc(50% - 1.5px), var(--text) 50%, transparent calc(50% + 1.5px)); filter: drop-shadow(0 0 10px var(--signal-pink)); opacity: var(--blade-opacity, 0.85); pointer-events: none; }
+
+/* ── overlays ── */
+/* plain alpha, no blend mode: a blended full-screen layer recomposites everything beneath it every frame */
+.scanlines { position: absolute; inset: 0; pointer-events: none; background: var(--scan-lines); opacity: 0.5; }
+.corner-frame { position: absolute; inset: var(--site-gutter); pointer-events: none; --len: 22px; background:
+  linear-gradient(var(--line-strong), var(--line-strong)) top left / var(--len) 1px,
+  linear-gradient(var(--line-strong), var(--line-strong)) top left / 1px var(--len),
+  linear-gradient(var(--line-strong), var(--line-strong)) top right / var(--len) 1px,
+  linear-gradient(var(--line-strong), var(--line-strong)) top right / 1px var(--len),
+  linear-gradient(var(--line-strong), var(--line-strong)) bottom left / var(--len) 1px,
+  linear-gradient(var(--line-strong), var(--line-strong)) bottom left / 1px var(--len),
+  linear-gradient(var(--line-strong), var(--line-strong)) bottom right / var(--len) 1px,
+  linear-gradient(var(--line-strong), var(--line-strong)) bottom right / 1px var(--len);
+  background-repeat: no-repeat; }
+
+/* ── stat meter (VbMeter's read: a thin rail, a filled run, the number beside it) ── */
+.meter { display: grid; grid-template-columns: 7.5rem 1fr 3.5rem; align-items: center; gap: 12px; }
+.meter__label { color: var(--text-3); }
+.meter__rail { block-size: 4px; background: var(--line); position: relative; overflow: hidden; }
+.meter__fill { position: absolute; inset: 0 auto 0 0; inline-size: calc(var(--value, 0) * 100%); background: var(--meter-tone, var(--ally)); box-shadow: 0 0 10px var(--meter-tone, var(--ally)); transition: inline-size var(--dur-zoom-in) var(--ease-snap); }
+.meter__value { font: 400 var(--font-size-readout-num)/1 var(--font-hud); text-align: end; }
+
+/* ── reveal on scroll: one class flip, the kit's viewIn recipe (12px rise over 320ms) ── */
+.reveal { opacity: 0; translate: 0 24px; transition: opacity var(--dur-crossfade) var(--ease-out), translate var(--dur-pan-out) var(--ease-snap); transition-delay: var(--reveal-delay, 0ms); }
+.reveal.is-visible { opacity: 1; translate: none; }
+
+/* ── icon button and skill chip (both pages) ── */
+.skill-chip { --cut: var(--cut-sm); --fill: var(--panel); --edge: var(--line); display: flex; align-items: center; gap: 10px; padding: 10px 12px; min-inline-size: 0; }
+.skill-chip .mask-icon { --icon-size: 30px; --icon-tone: var(--signal); }
+.skill-chip > span:last-child { display: grid; min-inline-size: 0; }
+.skill-chip b { font: 600 0.95rem/1.2 var(--font-body); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.skill-chip small { color: var(--text-3); }
+.icon-button { --cut: var(--cut-sm); --fill: var(--raised); --edge: var(--line-strong); display: grid; place-items: center; inline-size: 48px; block-size: 48px; font: 400 1.1rem/1 var(--font-hud); color: var(--text); }
+.icon-button:hover { --edge: var(--text); }
+
+/* ── segmented: VbSegmented (cut 6, panel fill, line-strong edge; the option that is on turns ink on text) ── */
+.segmented { --cut: var(--cut-sm); --fill: var(--panel-solid); --edge: var(--line-strong); display: inline-flex; padding: 3px; gap: 2px; }
+.segmented__option { --opt-cut: 4px; min-inline-size: 40px; min-block-size: 32px; padding: 4px 10px; font: 700 var(--font-size-label)/1 var(--font-body); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--text-2); clip-path: polygon(var(--opt-cut) 0, 100% 0, 100% calc(100% - var(--opt-cut)), calc(100% - var(--opt-cut)) 100%, 0 100%, 0 var(--opt-cut)); transition: background var(--dur-press) var(--ease-out), color var(--dur-press) var(--ease-out); }
+.segmented__option:hover { color: var(--text); background: var(--raised); }
+.segmented__option[aria-checked="true"] { background: var(--seg-on, var(--text)); color: var(--on-cta); }
+.segmented__option:focus-visible { outline-offset: -2px; }

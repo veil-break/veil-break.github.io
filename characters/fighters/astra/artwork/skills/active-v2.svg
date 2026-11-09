@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="hardlight dive">
-<title>hardlight dive</title>
-
-<g data-artwork="silhouette" transform=""><path fill="var(--icon-base, #15121e)" d="M19 3h26l10 10-5 20-11 8-7 20-7-20-11-8-5-20zM6 26l9 12-8 12-4-7zM58 26l3 17-4 7-8-12z"/><path fill="currentColor" d="M23 9h18l6 7-4 13-11 9-11-9-4-13zM27 16h10v11H27zM28 42l4 11 4-11z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 5l4 9M52 5l-4 9"/><path fill="var(--icon-base, #15121e)" d="M25 12h14l5 5-3 9-9 8-9-8-3-9zM25 15h14v13H25z"/></g>
-</svg>

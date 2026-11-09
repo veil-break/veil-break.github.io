@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="white noise">
-<title>white noise</title>
-
-<g data-artwork="silhouette" transform=""><path fill="var(--icon-base, #15121e)" d="M3 24l9-8h12l8 8v16l-8 8H12l-9-8zM32 27l8-7v24l-8-7z"/><path fill="currentColor" d="M11 25h12v14H11zM43 15l5 3v28l-5 3zM54 9l5 4v38l-5 4z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 32h10M37 6Q59 1 61 19M37 58Q59 63 61 45"/><path fill="var(--icon-base, #15121e)" d="M14 27h7v10h-7z"/></g>
-</svg>

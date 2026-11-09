@@ -3,56 +3,196 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>veilbreak // signal lost</title>
-  <meta name="description" content="Veilbreak: a roguelike squad survival runner. Hold the street. Shatter the Veil.">
+  <title>veilbreak — hold the street. shatter the veil.</title>
+  <meta name="description" content="Veilbreak: a roguelike squad survival runner. 47 operatives, four classes, one fractured street. Hold the street. Shatter the Veil.">
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#0d0811">
-  <link rel="preload" href="vendor/veilbreak/fonts/ShareTechMono-Regular.ttf" as="font" type="font/ttf" crossorigin>
+  <meta property="og:title" content="veilbreak — hold the street. shatter the veil.">
+  <meta property="og:description" content="A roguelike squad survival runner. 47 operatives, four classes, one fractured street.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://veil-break.github.io/">
+  <link rel="icon" href="assets/Mark.svg" type="image/svg+xml">
+  <link rel="preload" href="vendor/veilbreak/gui/fonts/texgyreadventor-bold.otf" as="font" type="font/otf" crossorigin>
   <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/pages/landing.css">
   <script defer src="vendor/react.production.min.js"></script>
   <script defer src="vendor/react-dom.production.min.js"></script>
+  <script defer src="vendor/veilbreak/gui/veilbreak.js"></script>
   <script defer src="scripts/VeilbreakSplash.js"></script>
-  <script type="module" src="scripts/main.js"></script>
+  <script type="module" src="scripts/landing/main.js"></script>
 </head>
 <body data-phase="splash">
-  <a class="skip-link" href="#command">skip to terminal</a>
+  <a class="skip-link" href="#main">skip intro</a>
+
   <section class="splash-screen" id="splash-root" aria-label="veilbreak intro">
     <div id="splash-animation" aria-hidden="true"><img src="assets/Mark.svg" alt="" width="513" height="259"></div>
     <audio id="slice-audio" preload="none" src="assets/VeilbreakSplashSlice.wav"></audio>
-    <div class="splash-controls">
+    <div class="splash-controls hud">
       <button type="button" id="toggle-sound" aria-pressed="false">audio off</button>
       <button type="button" id="skip-splash">skip intro [esc]</button>
     </div>
   </section>
-  <main id="main" class="terminal-stage" inert>
-    <div class="terminal-composition">
-      <figure class="operative" aria-label="veilbreak operative">
-        <img src="assets/character-cutout.png" alt="Cybernetic operative with a holographic cloak, spider rig and phase cannon" width="1024" height="1536" decoding="async" fetchpriority="high">
-      </figure>
-    <article class="terminal-window" aria-labelledby="terminal-title">
-      <header class="terminal-chrome">
-        <span class="terminal-dots" aria-hidden="true">● ● ●</span>
-        <h1 id="terminal-title">veilbreak — /dev/veil</h1>
-        <span class="terminal-status">offline</span>
-      </header>
-      <div class="terminal-body" id="terminal-body" tabindex="0" aria-label="terminal scrollback">
-        <div id="terminal-output" role="log" aria-label="terminal output" aria-live="polite" aria-relevant="additions">
-          <p class="term-muted">veilbreak [pre-alpha] // intercepted transmission</p>
-          <p class="term-genre">roguelike squad survival runner</p>
-          <p class="term-prose">Rain eats the skyline. Four operatives hold a fractured street as something behind the city begins to wake. Build your squad, survive the breach, and carry what remains into the next run.</p>
-          <p class="term-muted">the signal is yours. enter a command.</p>
-        </div>
-        <form id="terminal-form" class="terminal-prompt" autocomplete="off">
-          <label for="command"><span class="visually-hidden">terminal command</span><span aria-hidden="true">guest@veil:~$</span></label>
-          <input id="command" name="command" type="text" maxlength="256" spellcheck="false" autocapitalize="off" autocomplete="off" enterkeyhint="send" aria-describedby="command-hint">
-          <button class="run-command" type="submit" aria-label="run command">↵</button>
-        </form>
+
+  <canvas class="backdrop" id="backdrop" aria-hidden="true"></canvas>
+
+  <header class="site-header" id="site-header">
+    <a class="brand" href="./" aria-label="veilbreak home"><img src="assets/Mark.svg" alt="" width="513" height="259"><span>veilbreak</span></a>
+    <nav aria-label="primary">
+      <ul>
+        <li><a href="#premise">breach</a></li>
+        <li><a href="#classes">classes</a></li>
+        <li><a href="#operatives">operatives</a></li>
+        <li><a href="characters/">archive</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="hero" id="breach" aria-labelledby="hero-title">
+      <div class="hero__squad" id="hero-squad" aria-hidden="true">
+        <img class="hero__fighter" data-slot="0" src="characters/media/aria/figure.webp" alt="" width="1024" height="1536" decoding="async">
+        <img class="hero__fighter" data-slot="1" src="characters/media/mira/figure.webp" alt="" width="1024" height="1536" decoding="async" fetchpriority="high">
+        <img class="hero__fighter" data-slot="2" src="characters/media/rook/figure.webp" alt="" width="1024" height="1536" decoding="async">
       </div>
-      <footer class="terminal-footer"><p id="command-hint">enter to transmit · ↑ ↓ history</p><p>connection severed<span aria-hidden="true"> ▪</span></p></footer>
-    </article>
-    </div>
+      <div class="hero__fog" aria-hidden="true"></div>
+      <div class="hero__copy page-shell">
+        <p class="eyebrow hero__eyebrow">roguelike squad survival runner · pre-alpha</p>
+        <h1 class="hero__title" id="hero-title">
+          <span class="visually-hidden">Veilbreak</span>
+          <span class="split-title" aria-hidden="true"><span class="split-title__top" id="hero-word">veilbreak</span><span class="split-title__bottom">veilbreak</span></span>
+        </h1>
+        <p class="hero__tagline">hold the street. <strong>shatter the veil.</strong></p>
+        <div class="hero__actions">
+          <a class="button button--primary shape" href="characters/"><span>meet the <span data-roster-count>47</span></span><span class="button__arrow" aria-hidden="true">→</span></a>
+          <a class="button button--quiet shape" href="#signal"><span>intercept the signal</span><span class="button__arrow" aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+      <ul class="hero__readout hud" aria-hidden="true">
+        <li>sector 07 // overpass</li>
+        <li>rain <span data-flicker>92</span>%</li>
+        <li>veil integrity <span class="hero__warn" data-flicker>13</span>%</li>
+      </ul>
+      <p class="hero__deployed hud" id="hero-deployed" aria-live="polite">deployed // aria · mira · rook</p>
+      <div class="corner-frame" aria-hidden="true"></div>
+      <a class="hero__scroll hud" href="#premise"><span>descend</span><span aria-hidden="true">↓</span></a>
+    </section>
+
+    <section class="premise section" id="premise" aria-labelledby="premise-title">
+      <div class="page-shell premise__grid">
+        <div class="premise__rail">
+          <p class="eyebrow">intercepted // 01</p>
+          <h2 id="premise-title" data-glitch>the city is a lid.</h2>
+        </div>
+        <ol class="premise__lines" role="list">
+          <li class="premise__line">rain eats the skyline.</li>
+          <li class="premise__line">something behind the city <em>is waking.</em></li>
+          <li class="premise__line">four operatives hold a fractured street.</li>
+          <li class="premise__line">build your squad. survive the breach.</li>
+          <li class="premise__line">carry what remains <em>into the next run.</em></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="classes section" id="classes" aria-labelledby="classes-title">
+      <div class="page-shell">
+        <header class="section-head">
+          <p class="eyebrow">doctrine // 02</p>
+          <h2 id="classes-title" data-glitch>four ways to hold the line</h2>
+          <p>every operative fights as one of four classes. a squad lives or dies on the mix.</p>
+        </header>
+        <ul class="class-grid" id="class-grid" role="list"></ul>
+      </div>
+    </section>
+
+    <section class="operatives section" id="operatives" aria-labelledby="operatives-title">
+      <div class="operatives__backdrop" id="operatives-backdrop" aria-hidden="true"></div>
+      <div class="page-shell">
+        <header class="section-head">
+          <p class="eyebrow">roster // 03</p>
+          <h2 id="operatives-title" data-glitch><span data-roster-count>47</span> operatives. one street.</h2>
+          <p>every fighter, every kit — from the needle-sharp originals to the newest hypotheses still on the drawing board.</p>
+        </header>
+        <article class="spotlight" id="spotlight" aria-roledescription="carousel" aria-label="featured operative"></article>
+        <div class="reel" role="group" aria-label="choose an operative">
+          <ul class="reel__track" id="reel" role="list"></ul>
+        </div>
+        <p class="operatives__more"><a class="button button--primary shape" href="characters/"><span>open the full archive</span><span class="button__arrow" aria-hidden="true">→</span></a></p>
+      </div>
+    </section>
+
+    <section class="loop section" id="loop" aria-labelledby="loop-title">
+      <div class="page-shell">
+        <header class="section-head">
+          <p class="eyebrow">the run // 04</p>
+          <h2 id="loop-title" data-glitch>every run is a breach.</h2>
+        </header>
+        <ol class="loop__steps" role="list">
+          <li class="loop__step shape shape--lg reveal">
+            <span class="loop__index" aria-hidden="true">01</span>
+            <h3>build</h3>
+            <p>four operatives, <strong data-progression="budget">12</strong> skill points each, at most <strong data-progression="maximumPerSlot">5</strong> in one skill. rank <strong data-progression="augmentedRank">3</strong> augments a skill; rank <strong data-progression="transcendentRank">5</strong> transcends it.</p>
+          </li>
+          <li class="loop__step shape shape--lg reveal" style="--reveal-delay: 80ms">
+            <span class="loop__index" aria-hidden="true">02</span>
+            <h3>survive</h3>
+            <p>hold the street while the veil tears open behind it. the city does not stop, and neither does what is coming through.</p>
+          </li>
+          <li class="loop__step shape shape--lg reveal" style="--reveal-delay: 160ms">
+            <span class="loop__index" aria-hidden="true">03</span>
+            <h3>carry</h3>
+            <p>the run ends. what you kept does not. carry it into the next breach and go deeper.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="signal section" id="signal" aria-labelledby="terminal-title">
+      <div class="page-shell signal__grid">
+        <header class="section-head">
+          <p class="eyebrow">transmission // 05</p>
+          <h2 data-glitch>the signal is yours.</h2>
+          <p>an open line into /dev/veil. type anything. the veil answers how it always does.</p>
+        </header>
+        <article class="terminal shape shape--lg" id="terminal">
+          <span class="terminal__scan" aria-hidden="true"></span>
+          <header class="terminal__chrome hud">
+            <span class="terminal__dots" aria-hidden="true">● ● ●</span>
+            <h2 id="terminal-title" class="terminal__title">veilbreak — /dev/veil</h2>
+            <span class="terminal__status">offline</span>
+          </header>
+          <div class="terminal__body" id="terminal-body" tabindex="0" aria-label="terminal scrollback">
+            <div id="terminal-output" role="log" aria-label="terminal output" aria-live="polite" aria-relevant="additions">
+              <p class="term-muted">veilbreak [pre-alpha] // intercepted transmission</p>
+              <p class="term-genre">roguelike squad survival runner</p>
+              <p class="term-prose">Rain eats the skyline. Four operatives hold a fractured street as something behind the city begins to wake. Build your squad, survive the breach, and carry what remains into the next run.</p>
+              <p class="term-muted">the signal is yours. enter a command.</p>
+            </div>
+            <form id="terminal-form" class="terminal__prompt" autocomplete="off">
+              <label for="command"><span class="visually-hidden">terminal command</span><span aria-hidden="true">guest@veil:~$</span></label>
+              <input id="command" name="command" type="text" maxlength="256" spellcheck="false" autocapitalize="off" autocomplete="off" enterkeyhint="send" aria-describedby="command-hint">
+              <button class="terminal__run" type="submit" aria-label="run command">↵</button>
+            </form>
+          </div>
+          <footer class="terminal__footer hud"><p id="command-hint">enter to transmit · ↑ ↓ history</p><p>connection severed<span aria-hidden="true"> ▪</span></p></footer>
+        </article>
+      </div>
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="page-shell">
+      <div>
+        <img src="assets/Mark.svg" alt="veilbreak" width="513" height="259">
+        <p>character data: <span data-source="characters">veil-break/characters</span> · interface: <span data-source="gui">veilbreak design system</span></p>
+      </div>
+      <ul role="list">
+        <li><a href="characters/">fighter archive</a></li>
+        <li><a href="#breach">back to the breach ↑</a></li>
+      </ul>
+    </div>
+  </footer>
+
   <canvas class="breach-effects" id="breach-effects" aria-hidden="true" hidden></canvas>
-  <noscript><p class="noscript-note">javascript is required for the intro and interactive terminal.</p></noscript>
+  <noscript><p class="noscript-note">javascript runs the intro, the roster and the terminal. <a href="characters/">the archive</a> needs it too.</p><style>main{visibility:visible!important}.splash-screen{display:none}</style></noscript>
 </body>
 </html>

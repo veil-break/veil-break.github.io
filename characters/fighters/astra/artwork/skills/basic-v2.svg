@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="chainsaw rev">
-<title>chainsaw rev</title>
-<g data-frame="lock-on" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 20V7h13m24 0h13v13M57 44v13H44m-24 0H7V44M29 4h6M60 29v6M29 60h6M4 29v6"/></g>
-<g data-artwork="silhouette" transform="translate(6.4 6.4) scale(.8)"><path fill="var(--icon-base, #15121e)" d="M9 42L39 9l5-2 7 6 1 5-29 34-7 2-9-7zM6 41l-4 6 10 11 7-3zM15 32l-5-1 5-6 4 1zM23 23l-5-1 5-6 4 1zM31 14l-4-1 5-6 4 1zM32 43l5 1-5 6-4-1zM40 34l5 1-5 6-4-1zM48 25l5 1-5 6-4-1z"/><path fill="currentColor" d="M15 42l27-29 4 4-27 30zM8 47l6 6 2-2-6-6z"/><path fill="var(--icon-base, #15121e)" d="M22 37l17-18 1 1-17 18z"/></g>
-</svg>

@@ -1,0 +1,221 @@
+/* landing.css — the immersive index. Layering in the hero, back to front:
+   sky glow → veil canvas (rain, rift, embers) → title → squad → fog → copy and HUD. */
+/* registered so the slash-cut shear can animate (outside the layer: @property is not cascaded) */
+@property --shear { syntax: "<length>"; inherits: true; initial-value: 0.05em; }
+
+@layer pages {
+  /* ── splash and phases (splash → handoff → live) ── */
+  .splash-screen { position: fixed; inset: 0; z-index: var(--layer-modal); background: var(--site-ground); overflow: hidden; }
+  #splash-animation, .vbs-canvas-wrap { position: absolute; inset: 0; display: grid; place-items: center; }
+  #splash-animation > img { inline-size: min(65vw, 28rem); }
+  .vbs-svg { inline-size: 100%; block-size: 100%; }
+  .splash-controls { position: absolute; inset: auto 0 1.5rem; display: flex; justify-content: center; gap: var(--site-space-3); }
+  .splash-controls button { padding: var(--site-space-1); color: inherit; letter-spacing: inherit; text-transform: inherit; }
+  .splash-controls button:hover { color: var(--text); }
+  body[data-phase="splash"] :is(main, .site-header, .site-footer) { visibility: hidden; }
+  body[data-phase="handoff"] .splash-screen { animation: splash-dissolve var(--handoff-duration) linear both; }
+  body[data-phase="handoff"] :is(.vbs-hex, .splash-controls) { visibility: hidden; }
+  body:is([data-phase="handoff"], [data-phase="live"]) .hero__fighter { animation: fighter-in 1400ms var(--ease-snap) var(--enter-delay, 0ms) both, fighter-signal 1400ms steps(1) var(--enter-delay, 0ms) both; }
+  body:is([data-phase="handoff"], [data-phase="live"]) .split-title__bottom { animation: shear-in 1600ms var(--ease-snap) 400ms both; }
+  body:is([data-phase="handoff"], [data-phase="live"]) :is(.hero__eyebrow, .hero__tagline, .hero__actions, .hero__readout, .hero__deployed, .hero__scroll) { animation: copy-in var(--dur-pan-out) var(--ease-out) var(--copy-delay, 1100ms) both; }
+  .hero__tagline { --copy-delay: 1250ms; }
+  .hero__actions { --copy-delay: 1400ms; }
+  .breach-effects { position: fixed; inset: 0; z-index: calc(var(--layer-modal) + 1); inline-size: 100%; block-size: 100%; pointer-events: none; }
+
+  @keyframes splash-dissolve {
+    0% { opacity: 1; transform: translateX(0); }
+    15% { opacity: 0.95; transform: translateX(-18px); clip-path: inset(0); }
+    24% { opacity: 0.9; transform: translateX(32px); clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%, 0 41%, 100% 41%, 100% 78%, 0 78%); }
+    38% { opacity: 0.65; transform: translateX(-24px); clip-path: inset(0); }
+    60% { opacity: 0.4; transform: translateX(14px); }
+    82% { opacity: 0.15; transform: translateX(-8px); }
+    100% { opacity: 0; transform: translateX(0); visibility: hidden; }
+  }
+  @keyframes fighter-in {
+    0% { opacity: 0; transform: translateY(10%) scale(1.06); filter: brightness(4) saturate(0) blur(6px); }
+    35% { opacity: 0.6; filter: brightness(2) saturate(0.4) blur(1px); }
+    100% { opacity: var(--fighter-opacity, 1); transform: none; filter: none; }
+  }
+  /* ends on none, not inset(0): a clip at rest would cut the drop-shadow glow into the image's box */
+  @keyframes fighter-signal {
+    0%, 100% { clip-path: none; }
+    12% { clip-path: inset(0 0 62% 0); }
+    20% { clip-path: polygon(0 0, 100% 0, 100% 40%, 0 48%, 0 52%, 100% 44%, 100% 100%, 0 100%); }
+    28% { clip-path: inset(18% 0 0 0); }
+    36% { clip-path: none; }
+  }
+  @keyframes shear-in { from { --shear: 0.6em; opacity: 0; } to { --shear: 0.05em; opacity: 1; } }
+  @keyframes copy-in { from { opacity: 0; translate: 0 16px; } to { opacity: 1; translate: none; } }
+
+  /* ── hero ── */
+  .hero {
+    --px: 0;
+    --py: 0;
+    --hero-progress: 0;
+    position: relative;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    min-block-size: max(100svh, 640px);
+    overflow: clip;
+    isolation: isolate;
+  }
+
+  /* ── backdrop: one fixed canvas behind the whole page (scripts/landing/backdrop.js); the page scrolls over it ── */
+  .backdrop { position: fixed; inset: 0 auto auto 0; z-index: 0; inline-size: 100%; block-size: 100lvh; pointer-events: none; background: var(--site-ground); }
+  body:has(> .backdrop) { background: transparent; }
+  body:has(> .backdrop) > :is(main, .site-footer) { position: relative; z-index: 1; }
+
+  .hero__squad { position: absolute; inset: auto 0 0; z-index: 3; block-size: min(94svh, 1100px); pointer-events: none; }
+  .hero__fighter {
+    position: absolute;
+    inset-block-end: calc(-4% - var(--hero-progress) * 10%);
+    inset-inline-start: 50%;
+    block-size: 100%;
+    inline-size: auto;
+    max-inline-size: none;
+    object-fit: contain;
+    transform-origin: 50% 100%;
+    translate: calc(-50% + var(--offset, 0%) + var(--px) * var(--depth, 0) * 1px) calc(var(--py) * var(--depth, 0) * 0.4px);
+    scale: var(--size, 1);
+    opacity: var(--fighter-opacity, 1);
+  }
+  .hero__fighter[data-slot="1"] { --depth: 14; --enter-delay: 150ms; z-index: 2; }
+  /* side fighters recede into the haze with opacity: filters re-run on every frame the backdrop under them changes */
+  .hero__fighter:is([data-slot="0"], [data-slot="2"]) { --size: 0.8; --depth: -10; --fighter-opacity: 0.58; z-index: 1; }
+  /* the centre fighter's backlight is a gradient behind the squad, not a filter on the image */
+  .hero__squad::before { content: ""; position: absolute; inset: 0 25% 10%; z-index: 0; background: radial-gradient(50% 45% at 50% 40%, color-mix(in srgb, var(--scene-neon) 38%, transparent), transparent 70%); translate: calc(var(--px) * 14px) 0; }
+  .hero__fighter[data-slot="0"] { --offset: -38%; --enter-delay: 380ms; }
+  .hero__fighter[data-slot="2"] { --offset: 38%; --enter-delay: 520ms; }
+  .hero__fog { position: absolute; inset: auto 0 0; z-index: 4; block-size: 46%; pointer-events: none; background: linear-gradient(transparent, color-mix(in srgb, var(--site-ground) 55%, transparent) 50%, color-mix(in srgb, var(--site-ground) 82%, transparent)); }
+
+  /* the copy box makes no stacking context (no opacity or transform), so each line joins the hero's layers above the fog */
+  .hero__copy { position: relative; z-index: 5; grid-row: 2; display: grid; justify-items: center; text-align: center; gap: var(--site-space-2); padding-block-end: clamp(64px, 11vh, 128px); translate: 0 calc(var(--hero-progress) * -70px); opacity: calc(1 - var(--hero-progress) * 1.4); }
+  .hero__title { font-size: var(--fs-hero); line-height: 0.82; letter-spacing: -0.035em; margin-block: 0 -0.08em; }
+  /* glow on the solid half only: a text-shadow under background-clip: text paints its whole box */
+  /* the CRT raster lives in the title's own fill (static), not in a full-screen layer over a live canvas */
+  .hero__title .split-title__top { color: transparent; background: repeating-linear-gradient(0deg, var(--text) 0 3px, color-mix(in srgb, var(--text) 62%, transparent) 3px 4px); -webkit-background-clip: text; background-clip: text; filter: drop-shadow(0 0 30px color-mix(in srgb, var(--scene-neon) 55%, transparent)); }
+  .hero__eyebrow { padding: 4px 10px; background: color-mix(in srgb, var(--site-ground) 72%, transparent); }
+  .hero__tagline { font: 400 var(--fs-h3)/1.2 var(--font-display); text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-2); text-shadow: var(--text-halo); }
+  .hero__tagline strong { color: var(--text); font-weight: 700; }
+  .hero__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--site-space-2); margin-block-start: var(--site-space-2); }
+  .hero__readout { position: absolute; z-index: 5; inset: calc(var(--site-header) + var(--site-gutter)) auto auto var(--site-gutter); padding-inline-start: 14px; display: grid; gap: 2px; border-inline-start: 1px solid var(--line-strong); }
+  .hero__warn { color: var(--enemy-text); }
+  .hero__deployed { position: absolute; z-index: 5; inset: calc(var(--site-header) + var(--site-gutter)) var(--site-gutter) auto auto; text-align: end; color: var(--ally-text); }
+  .hero__scroll { position: absolute; z-index: 5; inset: auto 0 18px; margin-inline: auto; inline-size: max-content; display: grid; justify-items: center; gap: 2px; text-decoration: none; }
+  .hero__scroll span[aria-hidden] { animation: nudge 1.6s var(--ease-in-out) infinite; }
+  .hero .corner-frame { z-index: 5; inset: calc(var(--site-header) + 4px) var(--site-gutter) var(--site-gutter); }
+  @keyframes nudge { 50% { translate: 0 6px; } }
+
+  /* ── premise: lines light as they cross the middle of the viewport ── */
+  .premise__grid { display: grid; gap: var(--site-space-5); }
+  .premise__rail h2 { font-size: var(--fs-h2); margin-block-start: var(--site-space-2); }
+  .premise__lines { display: grid; gap: clamp(48px, 14vh, 140px); padding-block: 4vh 12vh; }
+  .premise__line { font: 700 clamp(1.8rem, 4.6vw, 3.6rem)/1.05 var(--font-display); text-transform: uppercase; letter-spacing: -0.01em; color: var(--text); opacity: 0.16; filter: blur(1.5px); transition: opacity var(--dur-crossfade) var(--ease-out), filter var(--dur-crossfade) var(--ease-out), translate var(--dur-pan-out) var(--ease-snap); translate: -12px 0; }
+  .premise__line.is-lit { opacity: 1; filter: none; translate: none; }
+  .premise__line em { color: transparent; background: var(--breach-gradient); -webkit-background-clip: text; background-clip: text; }
+
+  /* ── classes ── */
+  .class-grid { display: grid; gap: var(--site-space-2); grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+  .class-card { --edge: var(--line); --fill: linear-gradient(170deg, color-mix(in srgb, var(--tone) 16%, var(--panel-solid)), var(--panel-solid) 60%); display: grid; align-content: start; gap: var(--site-space-2); min-block-size: 420px; padding: var(--site-space-4) var(--site-space-3); color: var(--text); text-decoration: none; transition: translate var(--dur-ui) var(--ease-snap), filter var(--dur-ui) var(--ease-out); }
+  .class-card:hover, .class-card:focus-visible { --edge: linear-gradient(170deg, var(--tone), transparent 70%); translate: 0 -6px; filter: drop-shadow(0 12px 30px color-mix(in srgb, var(--tone) 30%, transparent)); }
+  .class-card .mask-icon { --icon-size: 72px; --icon-tone: var(--tone); filter: drop-shadow(0 0 16px color-mix(in srgb, var(--tone) 60%, transparent)); }
+  .class-card h3 { font-size: clamp(2rem, 3.4vw, 2.8rem); }
+  .class-card__count { color: var(--tone); }
+  .class-card p { color: var(--text-2); }
+  .class-card__faces { display: flex; margin-block-start: auto; padding-inline-start: 10px; }
+  .class-card__faces img { inline-size: 64px; block-size: 64px; margin-inline-start: -10px; object-fit: cover; background: var(--raised); border: 1px solid color-mix(in srgb, var(--tone) 60%, transparent); clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); }
+  .class-card__cta { color: var(--tone); }
+
+  /* ── operatives: spotlight + reel ── */
+  .operatives { overflow: clip; }
+  .operatives__backdrop { position: absolute; inset: 0; z-index: -1; background: radial-gradient(50% 60% at 28% 55%, color-mix(in srgb, var(--signal, var(--power)) 22%, transparent), transparent 70%); transition: opacity var(--dur-crossfade) var(--ease-out); }
+  .spotlight { --signal: var(--power); display: grid; gap: var(--site-space-4); align-items: center; }
+  .spotlight__art { --cut: var(--cut-lg); --edge: linear-gradient(160deg, color-mix(in srgb, var(--signal) 70%, transparent), transparent 55%); --fill: radial-gradient(70% 60% at 50% 60%, color-mix(in srgb, var(--signal) 28%, var(--panel-solid)), var(--panel-solid) 75%); position: relative; aspect-ratio: 4 / 5; overflow: hidden; }
+  .spotlight__code { position: absolute; inset: auto 0 -0.12em; z-index: 0; font: 700 clamp(8rem, 22vw, 18rem)/0.8 var(--font-display); letter-spacing: -0.06em; text-align: center; color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, var(--signal) 45%, transparent); pointer-events: none; }
+  .spotlight__figure { position: absolute; inset: 4% 0 0; z-index: 1; inline-size: 100%; block-size: 100%; object-fit: contain; object-position: 50% 100%; filter: drop-shadow(0 0 30px color-mix(in srgb, var(--signal) 40%, transparent)); }
+  .spotlight__figure.is-entering { animation: fighter-in 900ms var(--ease-snap) both, fighter-signal 900ms steps(1) both; }
+  .spotlight__info { display: grid; gap: var(--site-space-2); align-content: center; }
+  .spotlight__content { display: grid; gap: var(--site-space-2); }
+  .spotlight__name { font-size: var(--fs-h1); line-height: 0.9; color: var(--text); text-shadow: 0 0 40px color-mix(in srgb, var(--signal) 50%, transparent); }
+  .spotlight__callsign { color: var(--signal); }
+  .spotlight__identity { color: var(--text-2); font-size: var(--fs-lede); max-inline-size: 38rem; }
+  .spotlight__quote { position: relative; padding-inline-start: 22px; border-inline-start: 2px solid var(--signal); font: italic 400 1rem/1.6 var(--font-body); color: var(--text-2); }
+  .spotlight__skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .spotlight__actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-block-start: var(--site-space-1); }
+  .spotlight__nav { display: flex; align-items: center; gap: 6px; margin-inline-start: auto; }
+  .spotlight__counter { min-inline-size: 5ch; text-align: center; }
+
+  .reel { margin-block: var(--site-space-4) var(--site-space-5); overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent; mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); }
+  .reel__track { display: flex; gap: 8px; padding: 10px 4%; inline-size: max-content; }
+  .reel__item { scroll-snap-align: center; }
+  .reel__button { --cut: var(--cut-sm); --fill: radial-gradient(circle at 50% 80%, color-mix(in srgb, var(--signal) 35%, var(--panel-solid)), var(--panel-solid)); --edge: var(--line); display: block; inline-size: 84px; block-size: 84px; transition: translate var(--dur-ui) var(--ease-snap), filter var(--dur-ui) var(--ease-out); filter: grayscale(0.7) brightness(0.75); }
+  .reel__button img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+  .reel__button:hover, .reel__button:focus-visible { filter: none; translate: 0 -3px; }
+  .reel__button[aria-pressed="true"] { --edge: var(--signal); --bw: 2px; filter: none; translate: 0 -4px; }
+  .reel__item:has(> [aria-pressed="true"]) { filter: drop-shadow(0 0 12px color-mix(in srgb, var(--signal) 70%, transparent)); }
+  .operatives__more { display: flex; justify-content: center; }
+
+  /* ── loop ── */
+  .loop__steps { display: grid; gap: var(--site-space-2); grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); counter-reset: none; }
+  .loop__step { --fill: linear-gradient(160deg, var(--raised), var(--panel-solid) 70%); --edge: var(--line); display: grid; gap: var(--site-space-2); align-content: start; padding: var(--site-space-4) var(--site-space-3) var(--site-space-5); }
+  .loop__index { font: 700 clamp(4rem, 8vw, 6.5rem)/0.8 var(--font-display); color: transparent; background: var(--breach-gradient); -webkit-background-clip: text; background-clip: text; opacity: 0.9; }
+  .loop__step h3 { font-size: var(--fs-h3); }
+  .loop__step p { color: var(--text-2); }
+  .loop__step strong { color: var(--ally-text); font-family: var(--font-hud); font-weight: 400; }
+
+  /* ── signal: the terminal ── */
+  .signal__grid { display: grid; gap: var(--site-space-4); align-items: start; }
+  .terminal { --fill: color-mix(in srgb, var(--panel-solid) 92%, transparent); --edge: linear-gradient(140deg, var(--line-strong), color-mix(in srgb, var(--ally) 45%, transparent)); font: 400 0.95rem/1.65 var(--font-hud); filter: drop-shadow(0 28px 60px #0009); }
+  .terminal__scan { position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: 0; background: repeating-linear-gradient(0deg, transparent 0 5px, color-mix(in srgb, var(--glitch-cyan) 8%, transparent) 5px 6px); }
+  .terminal.has-fault { animation: command-fault var(--fault-duration) steps(1) both; }
+  .terminal.has-fault .terminal__scan { opacity: 1; }
+  .terminal__chrome, .terminal__footer { display: flex; align-items: center; justify-content: space-between; gap: var(--site-space-1); padding: 12px var(--site-space-3); }
+  .terminal__chrome { border-block-end: 1px solid var(--line); }
+  .terminal__title { font: inherit; text-transform: inherit; letter-spacing: inherit; }
+  .terminal__dots { letter-spacing: 0.25em; font-size: 0.625rem; }
+  .terminal__status { color: var(--enemy-text); }
+  .terminal__body { padding: var(--site-space-3); block-size: min(26rem, 60svh); min-block-size: 16rem; overflow-y: auto; scrollbar-color: var(--line) transparent; }
+  .terminal__footer { border-block-start: 1px solid var(--line); flex-wrap: wrap; }
+  #terminal-output p { margin-block-end: var(--site-space-2); }
+  #terminal-output > div p { margin-block-end: 0.25rem; }
+  #terminal-output > div > div { margin-block-end: var(--site-space-1); }
+  .term-muted { color: var(--text-3); font-size: 0.875rem; }
+  .term-genre, .terminal__prompt label { color: var(--ally-text); }
+  .term-genre { letter-spacing: 0.06em; }
+  .term-prose { max-inline-size: 60ch; font-family: var(--font-body); color: var(--text-2); }
+  .term-command { color: var(--text-3); white-space: pre-wrap; }
+  .term-error { color: var(--signal-pink); }
+  .terminal__prompt { display: flex; align-items: baseline; gap: var(--site-space-1); margin-block-start: var(--site-space-2); }
+  .terminal__prompt input { min-inline-size: 0; inline-size: 100%; flex: 1; padding: 0; border: 0; border-radius: 0; background: none; caret-color: var(--ally-text); outline: none; }
+  .terminal__prompt:focus-within { box-shadow: 0 1px 0 var(--ally); }
+  .terminal__run { color: var(--text-3); min-inline-size: 2rem; min-block-size: 2rem; }
+  @keyframes command-fault {
+    0%, 100% { transform: none; }
+    14%, 45% { transform: translateX(-10px); }
+    28%, 62% { transform: translateX(8px); clip-path: inset(1% 0 2%); }
+    80% { transform: translateX(-3px); clip-path: inset(0); }
+  }
+
+  /* ── wide layouts ── */
+  @media (min-width: 900px) {
+    .premise__grid { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr); }
+    .premise__rail { position: sticky; inset-block-start: calc(var(--site-header) + 15vh); align-self: start; }
+    .spotlight { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: var(--site-space-5); }
+    .signal__grid { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); }
+  }
+  @media (max-width: 760px) {
+    .hero__fighter:is([data-slot="0"], [data-slot="2"]) { --size: 0.72; }
+    .hero__fighter[data-slot="0"] { --offset: -48%; }
+    .hero__fighter[data-slot="2"] { --offset: 48%; }
+    .hero__squad { block-size: min(72svh, 150vw); inset-block-end: 20%; }
+    .hero__fog { block-size: 64%; background: linear-gradient(transparent, color-mix(in srgb, var(--site-ground) 78%, transparent) 38%, color-mix(in srgb, var(--site-ground) 88%, transparent) 70%); }
+    .hero__readout { display: none; }
+    .hero__deployed { inset: auto var(--site-gutter) 64px auto; font-size: 0.65rem; }
+    .hero__scroll { display: none; }
+    .spotlight__skills { grid-template-columns: minmax(0, 1fr); }
+    .spotlight__nav { margin-inline-start: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .premise__line { opacity: 1; filter: none; translate: none; }
+  }
+}

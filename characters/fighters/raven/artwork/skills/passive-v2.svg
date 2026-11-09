@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="kinetic tension">
-<title>kinetic tension</title>
-<g data-frame="passive" fill="none" stroke-width="2"><path stroke="var(--icon-base, #15121e)" d="M20 6h24l14 14v24L44 58H20L6 44V20z"/><path stroke="currentColor" d="M26 58h12M26 6h12"/></g>
-<g data-artwork="silhouette" transform="translate(6.4 6.4) scale(.8)"><path fill="var(--icon-base, #15121e)" d="M3 16l10-6 9 5v30l-9 7-10-6zM42 15l9-5 10 6v30l-10 6-9-7zM22 27h20v10H22z"/><path fill="currentColor" d="M9 19l5-3 3 2v24l-4 3-4-3zM47 18l4-2 4 3v23l-4 3-4-3zM24 30h16v4H24z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M25 18l-7 14 7 14M39 18l7 14-7 14"/><path fill="var(--icon-base, #15121e)" d="M11 21l2-1 1 1v20l-1 1-2-1zM50 21h2v20h-2z"/></g>
-</svg>

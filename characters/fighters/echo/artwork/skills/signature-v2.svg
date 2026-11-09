@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="overclock">
-<title>overclock</title>
-
-<g data-artwork="silhouette" transform=""><path fill="var(--icon-base, #15121e)" d="M26 4h12v8H26zM45 13l6-6 6 6-6 6zM7 36a25 25 0 1 0 50 0a25 25 0 1 0 -50 0"/><path fill="currentColor" d="M29 17h6v18l12-9 4 6-18 13-4-4zM11 39h7v5h-6zM16 20l5 5-4 4-5-5zM45 46l5 5-4 4-5-5z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M23 55Q49 61 57 37"/><path fill="var(--icon-base, #15121e)" d="M30 19h1v15h-1zM37 35l9-6 1 1-9 6z"/></g>
-</svg>

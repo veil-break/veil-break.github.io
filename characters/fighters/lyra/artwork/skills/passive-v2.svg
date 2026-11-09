@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="bass boost">
-<title>bass boost</title>
-<g data-frame="passive" fill="none" stroke-width="2"><path stroke="var(--icon-base, #15121e)" d="M20 6h24l14 14v24L44 58H20L6 44V20z"/><path stroke="currentColor" d="M26 58h12M26 6h12"/></g>
-<g data-artwork="silhouette" transform="translate(6.4 6.4) scale(.8)"><path fill="var(--icon-base, #15121e)" d="M10 6h35l8 8v42l-8 5H10L5 55V12z"/><path fill="currentColor" d="M16 40a13 13 0 1 0 26 0a13 13 0 1 0 -26 0M23 18a6 6 0 1 0 12 0a6 6 0 1 0 -12 0M8 12h4v42H8zM46 17h4v36h-4z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M57 24q9 12 0 24"/><path fill="var(--icon-base, #15121e)" d="M20 40a9 9 0 1 0 18 0a9 9 0 1 0 -18 0M26 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/></g>
-</svg>

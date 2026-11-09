@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="crash pulse">
-<title>crash pulse</title>
-
-<g data-artwork="silhouette" transform=""><path fill="var(--icon-base, #15121e)" d="M4 10l9-7 15 14-1 7-8 8-6-1-12-12zM21 32l7-7 9 9-7 7zM31 44l14-11 13 4 4 17-8 6H30l-5-8z"/><path fill="currentColor" d="M11 10l13 12-4 4L7 14zM38 34l-2 10 7 4-5 12 12-14-9-5 6-11zM49 27l9-7-2 10z"/><path fill="var(--icon-base, #15121e)" d="M10 12l10 9-2 2-10-9zM33 51h6v3h-7zM48 50h8v3h-8z"/></g>
-</svg>

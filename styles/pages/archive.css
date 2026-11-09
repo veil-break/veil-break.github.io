@@ -1,0 +1,157 @@
+/* archive.css — the fighter archive: legend, filters, the roster grid and the dossier dialog. */
+@layer pages {
+  .archive { padding-block-start: var(--site-header); overflow-x: clip; }
+  .archive__intro { position: relative; display: grid; gap: var(--site-space-2); padding-block: clamp(56px, 12vh, 140px) var(--site-space-5); }
+  .archive__intro h1 { font-size: var(--fs-h1); max-inline-size: 12ch; }
+  .archive__lede { color: var(--text-2); font-size: var(--fs-lede); max-inline-size: 40rem; }
+  .archive__glow { position: absolute; inset: -20% -10% 0 30%; z-index: -1; background: radial-gradient(40% 60% at 60% 40%, color-mix(in srgb, var(--scene-neon) 22%, transparent), transparent 70%), radial-gradient(30% 40% at 80% 70%, color-mix(in srgb, var(--signal-pink) 14%, transparent), transparent 70%); pointer-events: none; }
+
+  /* ── legend: the class toggles ── */
+  .class-legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 10px; margin-block-end: var(--site-space-3); }
+  .class-toggle { --fill: var(--panel); --edge: var(--line); display: flex; align-items: center; gap: 14px; padding: 14px 16px; color: var(--text); text-align: start; transition: translate var(--dur-ui) var(--ease-snap); }
+  .class-toggle > span:last-child { display: grid; gap: 2px; }
+  .class-toggle:hover { --edge: var(--line-strong); translate: 0 -2px; }
+  .class-toggle[aria-pressed="true"] { --edge: var(--tone); --fill: color-mix(in srgb, var(--tone) 16%, var(--panel-solid)); }
+  .class-toggle[aria-pressed="true"] .hud { color: var(--tone); }
+
+  /* ── filters ── */
+  .filters { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; padding-block: var(--site-space-2); margin-block-end: var(--site-space-4); border-block: 1px solid var(--line); }
+  .field { display: grid; gap: 6px; min-inline-size: 160px; }
+  .field--grow { flex: 1 1 260px; }
+  .field :is(input, select) { min-block-size: 48px; padding: 10px 14px; border: 1px solid var(--line-strong); border-radius: 0; background: var(--panel-solid); color: var(--text); font: 400 1rem/1.2 var(--font-body); }
+  .field :is(input, select):focus-visible { outline: 2px solid var(--focus); outline-offset: 0; border-color: transparent; }
+  .filters__count { margin-inline-start: auto; padding-block-end: 14px; white-space: nowrap; }
+
+  /* ── grid ── */
+  .fighter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr)); gap: 14px; }
+  .fighter-grid > li { min-inline-size: 0; }
+  .fighter-card { --cut: var(--cut-lg); --fill: var(--panel-solid); --edge: var(--line); display: grid; inline-size: 100%; text-align: start; color: var(--text); transition: translate var(--dur-ui) var(--ease-snap), filter var(--dur-ui) var(--ease-out); }
+  .fighter-card:hover, .fighter-card:focus-visible { --edge: linear-gradient(170deg, var(--signal), transparent 65%); translate: 0 -5px; }
+  /* the card clips its art to the cut, so its glow lives on the list item */
+  .fighter-grid > li:has(> .fighter-card:is(:hover, :focus-visible)) { filter: drop-shadow(0 14px 26px color-mix(in srgb, var(--signal, var(--power)) 28%, transparent)); }
+  .fighter-card:focus-visible { outline-offset: -4px; }
+  .fighter-card__art { position: relative; display: block; aspect-ratio: 1; overflow: hidden; background: radial-gradient(70% 70% at 50% 85%, color-mix(in srgb, var(--signal) 40%, var(--panel-solid)), var(--panel-solid) 75%); }
+  .fighter-card__art img { position: relative; inline-size: 100%; block-size: 100%; object-fit: cover; transition: scale var(--dur-pan-out) var(--ease-snap); }
+  .fighter-card:hover .fighter-card__art img { scale: 1.06; }
+  .fighter-card__code { position: absolute; inset: auto 8px -0.14em auto; font: 700 5.5rem/0.8 var(--font-display); color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, var(--signal) 55%, transparent); }
+  .fighter-card__body { display: grid; gap: 4px; padding: 14px 16px 18px; align-content: start; }
+  .fighter-card__meta { display: flex; align-items: center; gap: 8px; color: var(--tone); }
+  .fighter-card__rarity--rare { color: var(--rarity-rare); }
+  .fighter-card__rarity--epic { color: var(--rarity-epic); }
+  .fighter-card__rarity--legendary { color: var(--rarity-legendary); }
+  .fighter-card__name { font: 700 1.6rem/1 var(--font-display); text-transform: uppercase; }
+  .fighter-card__callsign { color: var(--text-3); font-size: 0.875rem; }
+  .fighter-card .chip { justify-self: start; margin-block-start: 6px; }
+
+  .notice { padding: 14px 16px; border: 1px dashed color-mix(in srgb, var(--warn) 50%, transparent); color: var(--warn); font-size: 0.9rem; }
+  .fineprint { color: var(--text-3); font-size: 0.8rem; }
+
+  .systems { --fill: var(--panel-solid); --edge: var(--line); margin-block: var(--site-space-5); }
+  .systems > summary { padding: 18px 20px; cursor: pointer; color: var(--text-2); }
+  .systems__body { padding: 0 16px 16px; }
+
+  /* ── dossier dialog ── */
+  .dossier { inline-size: min(1240px, 96vw); max-inline-size: 96vw; block-size: min(900px, 94dvh); max-block-size: 94dvh; padding: 0; border: 0; background: transparent; color: var(--text); overflow: visible; }
+  .dossier::backdrop { background: color-mix(in srgb, var(--dark-300) 82%, transparent); backdrop-filter: blur(8px) saturate(0.6); }
+  .dossier[open] { animation: dossier-in var(--dur-ui) var(--ease-snap); }
+  body:has(.dossier[open]) { overflow: hidden; }
+  @keyframes dossier-in { from { opacity: 0; translate: 0 12px; scale: 0.97; } }
+  .dossier__shell { --cut: var(--cut-lg); position: relative; display: grid; grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr); block-size: 100%; clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut)); background: var(--panel-solid); }
+  /* the frame draws above the sticky head and tabs, which would cover an inset shadow on the shell */
+  .dossier__shell::after { content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none; box-shadow: inset 0 0 0 1px var(--line-strong); }
+  .dossier__art { position: relative; overflow: hidden; background: radial-gradient(70% 60% at 50% 60%, color-mix(in srgb, var(--signal) 32%, var(--panel-solid)), var(--panel-solid) 78%); border-inline-end: 1px solid var(--line); }
+  .dossier__figure { position: absolute; inset: 3% 0 0; inline-size: 100%; block-size: 97%; object-fit: contain; object-position: 50% 100%; filter: drop-shadow(0 0 28px color-mix(in srgb, var(--signal) 45%, transparent)); animation: fighter-rise 700ms var(--ease-snap) both; }
+  .dossier__code { position: absolute; inset: auto 0 -0.12em; text-align: center; font: 700 clamp(7rem, 15vw, 13rem)/0.8 var(--font-display); color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, var(--signal) 50%, transparent); }
+  @keyframes fighter-rise { from { opacity: 0; translate: 0 4%; filter: brightness(3) blur(4px); } }
+  .dossier__scroll { overflow-y: auto; overscroll-behavior: contain; scrollbar-color: var(--line-strong) transparent; }
+  .dossier__controls { display: flex; align-items: center; gap: 6px; flex: none; }
+  .dossier__controls .icon-button { inline-size: 44px; block-size: 44px; }
+  .dossier__controls .icon-button:disabled { opacity: 0.35; cursor: default; }
+  .dossier__counter { min-inline-size: 6ch; text-align: center; }
+  .dossier__head { position: sticky; inset-block-start: 0; z-index: 2; display: flex; justify-content: space-between; align-items: start; gap: 16px; padding: 24px 28px 16px; background: linear-gradient(var(--panel-solid) 80%, transparent); }
+  .dossier__identity { display: grid; gap: 8px; }
+  .dossier__name { font-size: clamp(2.6rem, 5vw, 4.4rem); color: var(--text); text-shadow: 0 0 36px color-mix(in srgb, var(--signal) 50%, transparent); }
+  .dossier__callsign { color: var(--signal); }
+  .dossier__tabs { position: sticky; inset-block-start: 0; z-index: 1; display: flex; gap: 22px; padding-inline: 28px; overflow-x: auto; border-block-end: 1px solid var(--line); background: var(--panel-solid); }
+  .dossier__tabs [role="tab"] { padding: 14px 0 12px; border-block-end: 2px solid transparent; color: var(--text-3); font: 700 var(--font-size-label)/1 var(--font-body); letter-spacing: var(--tracking-label); text-transform: uppercase; white-space: nowrap; }
+  .dossier__tabs [role="tab"][aria-selected="true"] { color: var(--text); border-color: var(--signal); }
+  .dossier__panel { display: grid; gap: var(--site-space-3); padding: 24px 28px 40px; }
+  .dossier__panel[hidden] { display: none; }
+  .dossier__lede { font-size: var(--fs-lede); color: var(--text); }
+  .dossier__stats { display: grid; gap: 10px; --meter-tone: var(--signal); }
+  .dossier__section { display: grid; gap: 6px; }
+  .dossier__section .label { color: var(--signal); }
+  .dossier__section p { color: var(--text-2); }
+  .dossier__quote { padding-inline-start: 18px; border-inline-start: 2px solid var(--signal); font-style: italic; color: var(--text-2); }
+
+  /* abilities: compact cards; each carries its own rank toggle, the bar above sets every card at once */
+  .dossier__panel--abilities { gap: 10px; }
+  .abilities__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block-end: 4px; }
+  .abilities__bar .segmented { --seg-on: var(--signal); }
+  .ability { --cut: var(--cut-sm); --fill: var(--panel); --edge: var(--line); display: grid; gap: 6px; padding: 12px 14px 10px; }
+  .ability[data-rank="3"] { --edge: linear-gradient(100deg, color-mix(in srgb, var(--signal) 55%, transparent), var(--line) 40%); }
+  .ability[data-rank="5"] { --edge: linear-gradient(100deg, var(--signal), var(--line) 55%); --fill: linear-gradient(100deg, color-mix(in srgb, var(--signal) 10%, var(--panel-solid)), var(--panel) 60%); }
+  .ability__head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px; }
+  .ability__title { display: grid; min-inline-size: 0; }
+  .ability__title h3 { font-size: 1.15rem; line-height: 1.1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ability__title .hud { color: var(--signal); line-height: 1.2; }
+  .ability__ranks { --seg-on: var(--signal); }
+  .ability__ranks .segmented__option { min-inline-size: 34px; min-block-size: 28px; padding: 3px 7px; }
+  .ability__meta { color: var(--ally-text); font-size: 0.68rem; }
+  .ability__form { display: grid; gap: 2px; animation: rank-in var(--dur-ui) var(--ease-out); }
+  .ability__rank { color: var(--signal); font-size: 0.68rem; }
+  .ability__text { color: var(--text-2); font-size: 0.9rem; line-height: 1.55; }
+  @keyframes rank-in { from { opacity: 0; translate: 6px 0; } }
+  .disclosure > summary { cursor: pointer; color: var(--text-3); padding-block: 2px; inline-size: max-content; }
+  .disclosure > summary:hover { color: var(--text); }
+
+  .dossier__panel--artwork { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .art { display: grid; gap: 6px; margin: 0; }
+  .art--dossier { grid-column: 1 / -1; }
+  .art__frame { --fill: radial-gradient(circle at 50% 70%, color-mix(in srgb, var(--signal) 22%, var(--panel-solid)), var(--panel-solid)); --edge: var(--line); display: grid; place-items: center; padding: 10px; }
+  .art__frame img { max-block-size: 520px; object-fit: contain; }
+
+  /* ── json viewer ── */
+  .jv { --jv-key: var(--ally-text); --jv-string: var(--tier-lime); --jv-number: var(--orange-400); --jv-boolean: var(--lavender-300); --jv-null: var(--crimson-300); border: 1px solid var(--line); background: var(--dark-300); font: 12px/1.75 var(--font-hud); overflow: hidden; }
+  .jv-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 10px; border-block-end: 1px solid var(--line); background: var(--panel-solid); }
+  .jv-actions { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .jv-button { padding: 4px 8px; border: 1px solid var(--line-strong); color: var(--text-2); font: inherit; text-transform: inherit; letter-spacing: inherit; }
+  .jv-button:hover { border-color: var(--text); color: var(--text); }
+  .jv-tree { padding: 10px; overflow: auto; max-block-size: 60vh; }
+  .jv-row { display: flex; align-items: baseline; gap: 2px; white-space: nowrap; min-inline-size: max-content; padding-inline: 4px; }
+  .jv-row:hover { background: var(--raised); }
+  .jv-node > summary { list-style: none; cursor: pointer; }
+  .jv-node > summary::-webkit-details-marker { display: none; }
+  .jv-caret, .jv-caret-gap { display: inline-block; inline-size: 1em; flex: none; color: var(--text-3); }
+  .jv-caret { transition: rotate var(--dur-press) var(--ease-out); }
+  .jv-node[open] > summary > .jv-caret { rotate: 90deg; }
+  .jv-node[open] > summary > .jv-preview { display: none; }
+  .jv-children { margin-inline-start: 0.45em; padding-inline-start: 0.7em; border-inline-start: 1px solid var(--line); }
+  .jv-key { color: var(--jv-key); }
+  .jv-punct, .jv-preview, .jv-close { color: var(--text-3); }
+  .jv-string { color: var(--jv-string); }
+  .jv-number { color: var(--jv-number); }
+  .jv-boolean { color: var(--jv-boolean); }
+  .jv-null { color: var(--jv-null); font-style: italic; }
+
+  @media (max-width: 820px) {
+    .dossier { block-size: 96dvh; max-block-size: 96dvh; }
+    .dossier__shell { grid-template-columns: minmax(0, 1fr); grid-template-rows: 34dvh minmax(0, 1fr); }
+    .dossier__art { border-inline-end: 0; border-block-end: 1px solid var(--line); }
+    .dossier__head, .dossier__panel { padding-inline: 18px; }
+    .dossier__tabs { padding-inline: 18px; }
+    .dossier__panel--artwork { grid-template-columns: minmax(0, 1fr); }
+    .filters__count { margin-inline-start: 0; padding-block-end: 0; }
+  }
+  @media (max-width: 480px) {
+    .dossier__head { flex-direction: column-reverse; align-items: stretch; gap: 8px; padding-block-start: 14px; }
+    .dossier__controls { justify-content: flex-end; }
+    .dossier__controls .icon-button { inline-size: 40px; block-size: 40px; }
+    .abilities__bar > .hud { display: none; }
+    .fighter-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .fighter-card__body { padding: 10px 12px 14px; }
+    .fighter-card__name { font-size: 1.25rem; }
+    .fighter-card__code { font-size: 3.5rem; }
+    .meter { grid-template-columns: 6rem 1fr 3rem; }
+  }
+}

@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="thruster propulsion">
-<title>thruster propulsion</title>
-<g data-frame="passive" fill="none" stroke-width="2"><path stroke="var(--icon-base, #15121e)" d="M20 6h24l14 14v24L44 58H20L6 44V20z"/><path stroke="currentColor" d="M26 58h12M26 6h12"/></g>
-<g data-artwork="silhouette" transform="translate(6.4 6.4) scale(.8)"><path fill="var(--icon-base, #15121e)" d="M17 4h30l8 10-4 25-11 6H24l-11-6-4-25zM22 48l-5 12 10-4 5 8 5-8 10 4-5-12z"/><path fill="currentColor" d="M21 11h22l5 6-4 15-7 5H27l-7-5-4-15zM25 17h14v11H25zM25 47h14l-7 11z"/><path fill="var(--icon-base, #15121e)" d="M24 14h16l4 4-3 12-6 4h-6l-6-4-4-12zM24 16h16v13H24z"/></g>
-</svg>

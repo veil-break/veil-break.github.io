@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="seismic impact">
-<title>seismic impact</title>
-<g data-frame="passive" fill="none" stroke-width="2"><path stroke="var(--icon-base, #15121e)" d="M20 6h24l14 14v24L44 58H20L6 44V20z"/><path stroke="currentColor" d="M26 58h12M26 6h12"/></g>
-<g data-artwork="silhouette" transform="translate(6.4 6.4) scale(.8)"><path fill="var(--icon-base, #15121e)" d="M21 5h23l7 8-3 23-16 10-14-11-4-20zM4 51l11-9 8 6-7 8zM42 49l9-8 11 10-13 5zM22 57l10-6 10 6-10 6z"/><path fill="currentColor" d="M23 13h17l3 5-2 12-9 6-8-6zM3 35l9 4-1 4-9-3zM52 35l9-4 2 5-9 4z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M17 47Q31 58 46 46"/><path fill="var(--icon-base, #15121e)" d="M26 17h11l2 3-1 8-6 4-6-4z"/></g>
-</svg>
