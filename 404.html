@@ -2,15 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>veilbreak // not found</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>veilbreak — signal lost</title>
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d0811">
+  <link rel="icon" href="/assets/Mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles/main.css">
   <script>
-    if (location.pathname === '/characters') {
-      location.replace('/characters/' + location.search + location.hash);
-    }
+    // GitHub Pages serves this for every missing path; /characters without its slash is the archive.
+    if (location.pathname === '/characters') location.replace('/characters/' + location.search + location.hash);
   </script>
+  <style>
+    @layer pages {
+      .lost { min-block-size: 100svh; display: grid; place-content: center; justify-items: center; gap: var(--site-space-3); padding: var(--site-gutter); text-align: center; background: radial-gradient(40% 50% at 50% 45%, color-mix(in srgb, var(--scene-neon) 22%, transparent), transparent 70%), var(--site-ground); }
+      .lost img { inline-size: min(60vw, 320px); }
+      .lost h1 { font-size: var(--fs-h1); }
+      .lost p { color: var(--text-2); }
+      .lost nav { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--site-space-2); }
+    }
+  </style>
 </head>
 <body>
-  <h1>404 - Not Found</h1>
-  <p><a href="/">Return to veilbreak</a> · <a href="/characters/">Character Archive</a></p>
+  <main class="lost">
+    <img src="/assets/Mark.svg" alt="veilbreak" width="513" height="259">
+    <p class="hud">error 0x0404 // frame lost</p>
+    <h1>signal lost.</h1>
+    <p>this street does not exist. not anymore.</p>
+    <nav aria-label="recover">
+      <a class="button button--primary shape" href="/"><span>back to the breach</span><span class="button__arrow" aria-hidden="true">→</span></a>
+      <a class="button button--quiet shape" href="/characters/"><span>fighter archive</span><span class="button__arrow" aria-hidden="true">→</span></a>
+    </nav>
+  </main>
 </body>
 </html>

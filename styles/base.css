@@ -1,12 +1,11 @@
-@font-face {
-  font-family: "Share Tech Mono";
-  src: url("../vendor/veilbreak/fonts/ShareTechMono-Regular.ttf") format("truetype");
-  font-display: swap;
-}
-:where(html) { color-scheme: dark; background: var(--color-ground); color: var(--color-text); font: 16px/1.65 var(--font-mono); }
-:where(body) { min-block-size: 100svh; overflow-x: hidden; }
-:where(button, input) { font: inherit; }
-:where(button) { cursor: pointer; }
-:where(button, input) { border: 0; background: transparent; color: inherit; }
-:where(:focus-visible) { outline: 1px solid var(--color-signal); outline-offset: 4px; }
-:where(p) { overflow-wrap: anywhere; }
+/* base.css — document defaults on the kit's type families */
+:where(html) { color-scheme: dark; background: var(--site-ground); color: var(--text); font: 400 var(--fs-body)/1.65 var(--font-body); -webkit-font-smoothing: antialiased; scroll-padding-block-start: var(--site-header); }
+:where(body) { min-block-size: 100svh; overflow-x: clip; background: var(--site-ground); }
+:where(h1, h2, h3) { font-family: var(--font-display); font-weight: 700; line-height: 0.95; letter-spacing: -0.02em; text-transform: uppercase; text-wrap: balance; }
+:where(a) { color: inherit; text-decoration-color: var(--line-strong); text-underline-offset: 0.2em; }
+:where(a:hover) { text-decoration-color: currentColor; }
+:where(button) { cursor: pointer; border: 0; background: none; padding: 0; }
+:where(:focus-visible) { outline: 2px solid var(--focus); outline-offset: 3px; }
+:where(::selection) { background: var(--enemy); color: var(--text); }
+:where(code, kbd, samp) { font-family: var(--font-hud); }
+:where(em) { font-style: normal; color: var(--ally-text); }

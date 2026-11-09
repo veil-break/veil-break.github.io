@@ -1,18 +1,45 @@
+/* tokens.css — site aliases onto the kit tokens (vendor/veilbreak/gui/tokens.css). Sizes the game HUD never needs
+   (display headlines, page gutters) live here; every colour, font, cut, duration and easing is the kit's. */
 :root {
-  --color-ground: #0d0811;
-  --color-panel: #100e17;
-  --color-text: #faeef4;
-  --color-muted: #aaa2b3;
-  --color-line: #faeef424;
-  --color-signal: #8ff0cf;
-  --color-fault: #ff40a0;
-  --color-cyan: #48f5ef;
-  --font-mono: "Share Tech Mono", ui-monospace, monospace;
-  --space-small: 0.75rem;
-  --space-medium: 1.5rem;
-  --space-large: clamp(1.25rem, 4vw, 3rem);
+  --site-ground: var(--splash-ground);
+  --site-gutter: clamp(16px, 4vw, 56px);
+  --site-max: 1440px;
+  --site-header: 64px;
+
+  --fs-hero: clamp(3.4rem, 16.5vw, 15rem);
+  --fs-h1: clamp(2.6rem, 9vw, 7rem);
+  --fs-h2: clamp(2.1rem, 6.4vw, 5.25rem);
+  --fs-h3: clamp(1.35rem, 2.6vw, 2rem);
+  --fs-lede: clamp(1.05rem, 1.6vw, 1.3rem);
+  --fs-body: 1rem;
+  --fs-hud: 0.75rem;
+  --tracking-hud: 0.18em;
+  --tracking-label: 0.15em;
+
+  --site-space-1: var(--space-2);
+  --site-space-2: var(--space-4);
+  --site-space-3: var(--space-6);
+  --site-space-4: var(--space-8);
+  --site-space-5: var(--space-12);
+  --site-section: clamp(96px, 16vh, 200px);
+
+  /* rarity → the kit's tier ramp (RarityTier) */
+  --rarity-rare: var(--tier-blue);
+  --rarity-epic: var(--tier-violet);
+  --rarity-legendary: var(--tier-gold);
+
+  /* the breach: the kit's glitch and signal colours, as one gradient vocabulary */
+  --breach-gradient: linear-gradient(100deg, var(--enemy) 0%, var(--power) 50%, var(--ally) 100%);
+  --scan-lines: repeating-linear-gradient(0deg, transparent 0 3px, #0000002e 3px 4px);
+
   --handoff-duration: 2400ms;
   --fault-duration: 640ms;
-  --operative-delay: 600ms;
-  --operative-duration: 1700ms;
+}
+
+/* class tones: the kit has no class colours, so the site maps each class onto one kit semantic */
+:root {
+  --class-breaker: var(--enemy);
+  --class-striker: var(--warn);
+  --class-bastion: var(--cyan-400);
+  --class-operator: var(--power);
 }
