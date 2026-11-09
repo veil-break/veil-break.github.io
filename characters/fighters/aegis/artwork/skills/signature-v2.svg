@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="absolute wall">
-<title>absolute wall</title>
-
-<g data-artwork="silhouette" transform=""><path fill="var(--icon-base, #15121e)" d="M5 15l10-7h12v49H5zM29 4h14v53H29zM45 9h9l7 7v41H45zM2 58h61v4H2z"/><path fill="currentColor" d="M10 19h6v31h-6zM34 10h4v40h-4zM50 19h5v31h-5zM18 12h5v5h-5zM47 12h5v4h-5z"/><path fill="var(--icon-base, #15121e)" d="M12 24h2v17h-2zM35 15h2v26h-2zM51 24h2v17h-2z"/></g>
-</svg>

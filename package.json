@@ -1,0 +1,12 @@
+{
+  "name": "veil-break.github.io",
+  "private": true,
+  "type": "module",
+  "description": "The public Veilbreak pages: the immersive landing and the fighter archive. Static; no build step.",
+  "scripts": {
+    "sync": "python3 tools/sync.py",
+    "check": "python3 tools/sync.py --check",
+    "test": "bun test",
+    "serve": "python3 -m http.server 8000"
+  }
+}

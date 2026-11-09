@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="dad instinct">
-<title>dad instinct</title>
-<g data-frame="passive" fill="none" stroke-width="2"><path stroke="var(--icon-base, #15121e)" d="M20 6h24l14 14v24L44 58H20L6 44V20z"/><path stroke="currentColor" d="M26 58h12M26 6h12"/></g>
-<g data-artwork="silhouette" transform="translate(6.4 6.4) scale(.8)"><path fill="var(--icon-base, #15121e)" d="M12 8l20-5 20 5 5 7-5 29-20 17-20-17-5-29zM2 27h8v15H2zM54 27h8v15h-8z"/><path fill="currentColor" d="M29 10h6v35l-3 7-3-7zM16 17l9-3v5l-8 3zM39 14l9 3-1 5-8-3zM18 30l7 7 17-17 5 5-22 22-12-12z"/><path fill="var(--icon-base, #15121e)" d="M30 14h3v13h-3zM25 39l16-16 1 1-17 17-8-8 1-1z"/></g>
-</svg>

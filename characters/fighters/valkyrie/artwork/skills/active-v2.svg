@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="phase needle">
-<title>phase needle</title>
-
-<g data-artwork="silhouette" transform=""><path fill="var(--icon-base, #15121e)" d="M5 30l10-8h28l16 10-16 10H15L5 36zM8 24l-5-5 12 2zM8 41l-5 5 12-3zM39 3h6v15h-6zM39 46h6v15h-6z"/><path fill="currentColor" d="M16 27h25l10 5-10 5H16l7-5zM48 13h5v11h-5zM48 40h5v11h-5z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M58 21v22"/><path fill="var(--icon-base, #15121e)" d="M23 29h17l7 3-7 3H23l4-3z"/></g>
-</svg>

@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="hardlight shuriken">
-<title>hardlight shuriken</title>
-<g data-frame="lock-on" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 20V7h13m24 0h13v13M57 44v13H44m-24 0H7V44M29 4h6M60 29v6M29 60h6M4 29v6"/></g>
-<g data-artwork="silhouette" transform="translate(6.4 6.4) scale(.8)"><path fill="var(--icon-base, #15121e)" d="M33 2l8 18 21 9-19 11-11 22-9-21-21-9 20-11z"/><path fill="currentColor" d="M32 12l4 15 15 3-15 5-4 16-4-16-15-3 15-5zM28 28h8v8h-8z"/><path fill="var(--icon-base, #15121e)" d="M31 20l2 8 8 3-8 3-1 8-3-8-7-2 7-3z"/></g>
-</svg>

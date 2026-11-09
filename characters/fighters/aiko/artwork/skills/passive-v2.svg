@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="recoil stabilizer">
-<title>recoil stabilizer</title>
-<g data-frame="passive" fill="none" stroke-width="2"><path stroke="var(--icon-base, #15121e)" d="M20 6h24l14 14v24L44 58H20L6 44V20z"/><path stroke="currentColor" d="M26 58h12M26 6h12"/></g>
-<g data-artwork="silhouette" transform="translate(6.4 6.4) scale(.8)"><path fill="var(--icon-base, #15121e)" d="M15 5h34l7 11-5 21-13 7v8h20v9H5v-9h21v-8L10 37 7 16z"/><path fill="currentColor" d="M18 12h26l5 7-3 12-12 7-16-7-4-12zM27 17h10v10H27zM29 40h6v15h-6zM9 55h15v3H9zM40 55h14v3H40z"/><path fill="var(--icon-base, #15121e)" d="M20 15h22l4 5-3 9-9 6-13-6-4-9zM26 16h12v12H26z"/></g>
-</svg>

@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="rail slug">
-<title>rail slug</title>
-<g data-frame="lock-on" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 20V7h13m24 0h13v13M57 44v13H44m-24 0H7V44M29 4h6M60 29v6M29 60h6M4 29v6"/></g>
-<g data-artwork="silhouette" transform="translate(6.4 6.4) scale(.8)"><path fill="var(--icon-base, #15121e)" d="M2 24l9-8h24l25 16-25 16H11l-9-8zM31 6h5v13h-5zM31 45h5v13h-5z"/><path fill="currentColor" d="M12 25h20l16 7-16 7H12l7-7zM41 14h4v9h-4zM41 41h4v9h-4z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M52 21v22"/><path fill="var(--icon-base, #15121e)" d="M22 29h8l9 3-9 3h-8l3-3z"/></g>
-</svg>

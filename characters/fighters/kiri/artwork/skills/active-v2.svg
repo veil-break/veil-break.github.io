@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="mirror array">
-<title>mirror array</title>
-
-<g data-artwork="silhouette" transform=""><path fill="var(--icon-base, #15121e)" d="M3 17l12-9 5 5v34l-12 8-5-5zM23 9l12-8 7 7v48l-12 7-7-7zM45 18l12-9 5 6v33l-12 8-5-6z"/><path fill="currentColor" d="M7 20l8-6v30l-8 6zM28 12l8-6v47l-8 5zM49 21l8-6v30l-8 6zM9 21l4-3v9l-4 3zM30 15l4-3v10l-4 3z"/><path fill="var(--icon-base, #15121e)" d="M9 33l4-3v12l-4 3zM30 31l4-3v22l-4 3zM51 33l4-3v11l-4 3z"/></g>
-</svg>

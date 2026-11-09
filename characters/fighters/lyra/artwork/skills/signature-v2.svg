@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="frequency climax">
-<title>frequency climax</title>
-
-<g data-artwork="silhouette" transform=""><path fill="var(--icon-base, #15121e)" d="M2 21l6-6h12l5 6v24l-5 6H8l-6-6zM39 21l5-6h12l6 6v24l-6 6H44l-5-6zM26 3h12v7H26zM26 54h12v7H26z"/><path fill="currentColor" d="M8 23h10v6H8zM46 23h10v6H46zM7 39a6 6 0 1 0 12 0a6 6 0 1 0 -12 0M45 39a6 6 0 1 0 12 0a6 6 0 1 0 -12 0"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 33h13l8-18 12 34 8-16h13"/><path fill="var(--icon-base, #15121e)" d="M10 39a3 3 0 1 0 6 0a3 3 0 1 0 -6 0M48 39a3 3 0 1 0 6 0a3 3 0 1 0 -6 0M10 25h6v2h-6zM48 25h6v2h-6z"/></g>
-</svg>
